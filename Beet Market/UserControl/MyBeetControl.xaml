@@ -1,0 +1,162 @@
+﻿<UserControl x:Class="Beet_Market.MyBeetControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Beet_Market"
+             Background="White"
+             mc:Ignorable="d" 
+             IsTabStop="False"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="profile_grid" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Ellipse Grid.Row="1" Width="120" Height="120" Margin="15" StrokeThickness="3.5">
+                <Ellipse.Stroke>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#F3445A" Offset="0.0"/>
+                        <GradientStop Color="#F3B45A" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Ellipse.Stroke>
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="{Binding Path=UserImg}" Stretch="UniformToFill"/>
+                </Ellipse.Fill>
+            </Ellipse>
+            <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center">
+                <TextBlock FontSize="20" TextAlignment="Center" FontWeight="Bold" Text="{Binding Path=UserNickName}"></TextBlock>
+                <TextBlock FontSize="15" Foreground="Gray" Text="{Binding Path=UserId, StringFormat=#{0:0}}"></TextBlock>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Row="4" HorizontalAlignment="Center">
+                <TextBlock FontWeight="DemiBold" TextAlignment="Center">가입일시</TextBlock>
+                <TextBlock Text="{Binding Path=Connected_at}"></TextBlock>
+            </StackPanel>
+            <Rectangle Grid.RowSpan="6" HorizontalAlignment="Right" Width="1.5" Fill="LightGray"/>
+        </Grid>
+        <Grid Grid.Column="1" Margin="30,0,0,0">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ItemsControl ItemsSource="{Binding Items}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Width="350" Height="570" Grid.Row="0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition />
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Grid.Row="0" Stretch="Fill" MaxHeight="300" Width="auto">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{Binding Path=ImageSource}"/>
+                                        </Image.Source>
+                                    </Image>
+
+                                    <TextBlock Text="{Binding Path=Title}"
+                                       Grid.Row="1" 
+                                       VerticalAlignment="Top"                                   
+                                       FontWeight="DemiBold"
+                                       FontSize="18"
+                                       Margin="10"
+                                       TextWrapping="Wrap"/>
+
+                                    <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.Row="2">
+                                        <TextBlock>카테고리</TextBlock>
+                                        <TextBlock Text="{Binding Path=Created_at, StringFormat=ㆍ{0:yyyy년MM월dd일 HH:mm:ss}}"></TextBlock>
+                                    </StackPanel>
+
+                                    <TextBox
+                                        Grid.Row="3"
+                                        Height="100"
+                                        Margin="10"
+                                        VerticalAlignment="Top"
+                                        materialDesign:HintAssist.Hint="This is a text area"
+                                        AcceptsReturn="True"
+                                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
+                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                        TextWrapping="Wrap"
+                                        VerticalScrollBarVisibility="Auto" />
+
+                                    <StackPanel
+                                        Grid.Row="4"
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Left"
+                                        Margin="10,0,0,0"
+                                        Orientation="Horizontal">
+                                        <TextBlock FontSize="17" FontWeight="DemiBold">150000원</TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        Grid.Row="5"
+                                        Margin="0,0,5,0"                                        
+                                        VerticalAlignment="Bottom"
+                                        HorizontalAlignment="Right"
+                                        Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button Width="30"
+                                                Padding="0"
+                                                materialDesign:RippleAssist.IsCentered="True"
+                                                Style="{StaticResource MaterialDesignToolButton}">
+                                                <materialDesign:PackIcon Kind="EyeOutline" />
+                                            </Button>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=See, StringFormat={}{0:0명}}"></TextBlock>
+                                        </StackPanel>
+                                        <materialDesign:PopupBox Padding="2,0,2,0" Margin="10,0,0,0" Style="{StaticResource MaterialDesignToolPopupBox}" HorizontalAlignment="Right">
+                                            <StackPanel>
+                                                <Button Width="auto" Margin="7" Foreground="Black"
+                                                    Style="{StaticResource MaterialDesignFlatLightButton}" 
+                                                    ToolTip="MaterialDesignFlatLightButton">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <materialDesign:PackIcon Kind="PencilOutline" Width="16" Height="16" Margin="0,0,5,0" />
+                                                        <TextBlock Text="수정하기" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button Width="auto" Margin="7" Foreground="Black"
+                                                    Style="{StaticResource MaterialDesignFlatLightButton}" 
+                                                    ToolTip="MaterialDesignFlatLightButton">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                        <materialDesign:PackIcon Kind="DeleteOutline" Width="16" Height="16" Margin="0,0,5,0" />
+                                                        <TextBlock Text="삭제하기" VerticalAlignment="Center" />
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                        </materialDesign:PopupBox>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel ItemWidth="370" ItemHeight="600" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

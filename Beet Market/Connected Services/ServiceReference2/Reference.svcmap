@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="64e418f2-3926-4b7d-991e-f0879e2eca9c" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:9100/MarketService" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="MarketService.xsd" MetadataType="Schema" ID="67e06a3b-63ab-466e-babb-d4878a31f293" SourceId="1" SourceUrl="http://localhost:9100/MarketService?xsd=xsd0" />
+    <MetadataFile FileName="MarketService1.xsd" MetadataType="Schema" ID="bfe4ca51-5380-4f48-83dd-9298a9d63099" SourceId="1" SourceUrl="http://localhost:9100/MarketService?xsd=xsd1" />
+    <MetadataFile FileName="MarketService2.xsd" MetadataType="Schema" ID="ceef7e38-3011-436d-91ee-ab3cc9c5e7db" SourceId="1" SourceUrl="http://localhost:9100/MarketService?xsd=xsd2" />
+    <MetadataFile FileName="ProductService.wsdl" MetadataType="Wsdl" ID="0b1c7e5a-30ce-4dd7-b15d-ca9805297d41" SourceId="1" SourceUrl="http://localhost:9100/MarketService?wsdl" />
+    <MetadataFile FileName="MarketService.disco" MetadataType="Disco" ID="0ebc8f21-01d7-4940-9d20-d97840682738" SourceId="1" SourceUrl="http://localhost:9100/MarketService?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

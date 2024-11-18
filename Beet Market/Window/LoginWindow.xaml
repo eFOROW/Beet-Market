@@ -1,0 +1,45 @@
+﻿<Window x:Class="Beet_Market.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Beet_Market"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Icon="../Image/icon.png"
+        Title="비트마켓 - 로그인" Height="600" Width="1000" MinWidth="700" MinHeight="440">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="65"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="1" Name="lblToast" Height="40" Width="170" Visibility="Hidden" Background="Black">
+            <Image x:Name="ToastIcon" Source="../Image/icon.png" Width="25" Margin="5"/>
+            <Label x:Name="ToastMessageLabel" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Padding="10" Background="Transparent"/>
+        </StackPanel>
+        <Image Grid.Row="2" DockPanel.Dock="Top" Source="../Image/logo.png"  Grid.Column="1"  MaxWidth="300"/>
+        <Button Grid.Row="3" Grid.Column="1" BorderThickness="0" Background="Transparent" Click="Button_Click" Margin="10,20,10,0">
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Opacity" Value="1" />
+                    <Style.Triggers>
+                        <!-- 버튼을 눌렀을 때 -->
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Opacity" Value="0.7" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+            <Image Source="../Image/kakao_login_medium_wide.png" Stretch="Fill"/>
+        </Button>
+    </Grid>
+</Window>

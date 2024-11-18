@@ -1,0 +1,16 @@
+﻿<Window x:Class="Beet_Market.KaKaoLogin_Dialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        xmlns:wfhost="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:local="clr-namespace:Beet_Market"
+        mc:Ignorable="d"
+        Title="KaKaoLogin_Dialog" Height="700" Width="500">
+    <Grid>
+        <wfhost:WindowsFormsHost Name="windowsFormsHost">
+            <wf:WebBrowser x:Name="webBrowser"/>
+        </wfhost:WindowsFormsHost>
+    </Grid>
+</Window>
