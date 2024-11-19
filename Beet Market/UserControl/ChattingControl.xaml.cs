@@ -1,10 +1,13 @@
 ﻿using Beet_Market.ServiceReference1;
 using Beet_Market.ServiceReference2;
+using Firebase.Database;
+using Firebase.Database.Query;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reactive.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -28,6 +31,13 @@ namespace Beet_Market
         private KakaoManager km = KakaoManager.Instance;
         private ObservableCollection<ChatRoom> Chatroom = new ObservableCollection<ChatRoom>();
         CompositeCollection compositeCollection = new CompositeCollection();
+
+        private static readonly string firebaseUrl = "https://practice-web-db.firebaseio.com/";
+        static FirebaseClient firebase = new FirebaseClient(firebaseUrl);
+
+        public ObservableCollection<Message> Messages { get; set; } = null;
+        private string currentUser; // 현재 사용자의 이름 (User1 또는 User2)
+
 
         public ChattingControl()
         {
@@ -69,6 +79,34 @@ namespace Beet_Market
 
             conversationList.ItemsSource = compositeCollection;
             #endregion
+
+            // ObservableCollection 초기화
+            Messages = new ObservableCollection<Message>();
+
+            // 초기 사용자 설정
+            currentUser = "User1"; // 기본값: User1
+
+            // Firebase에서 초기 데이터 가져오기
+            LoadInitialMessages();
+
+            // Firebase에서 실시간 메시지 수신
+            firebase
+                .Child("ChatRoom/room1/messages")
+                .AsObservable<Message>()
+                .ObserveOnDispatcher() // UI 스레드에서 처리
+                .Subscribe(change =>
+                {
+                    if (change.EventType == Firebase.Database.Streaming.FirebaseEventType.InsertOrUpdate)
+                    {
+                        var newMessage = change.Object;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            Messages.Add(newMessage);
+                            UpdateMessageBox();
+                        });
+                    }
+                });
+
         }
 
         private void ScrollViewer_Loaded(object sender, RoutedEventArgs e)
@@ -76,5 +114,69 @@ namespace Beet_Market
             // 스크롤뷰어가 항상 마지막 메시지를 표시하도록 설정
             scrollViewer.ScrollToEnd();
         }
+
+        private void UpdateMessageBox()
+        {
+            // Messages 리스트 데이터를 TextBox2에 출력
+            textBox2.Text = string.Join(Environment.NewLine, Messages.Select(m => $"{m.Sender}: {m.Content}"));
+        }
+
+        private void switchUserButton_Click(object sender, EventArgs e)
+        {
+            // 유저 이름 전환 (User1 ↔ User2)
+            currentUser = (currentUser == "User1") ? "User2" : "User1";
+            MessageBox.Show($"현재 사용자: {currentUser}");
+        }
+
+        private async void LoadInitialMessages()
+        {
+            try
+            {
+                var messages = await firebase.Child("ChatRoom/room1/messages").OnceAsync<Message>();
+
+                foreach (var message in messages)
+                {
+                    Messages.Add(message.Object);
+                }
+
+                // 메시지를 텍스트박스에 표시
+                UpdateMessageBox();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading messages: {ex.Message}");
+            }
+        }
+
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var newMessage = new Message
+                {
+                    Sender = currentUser, // 현재 사용자의 이름
+                    Content = textBox1.Text,
+                    Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                };
+
+                textBox1.Text = ""; // 입력창 초기화
+
+                // Firebase에 메시지 추가
+                await firebase.Child("ChatRoom/room1/messages").PostAsync(newMessage);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error sending message: {ex.Message}");
+            }
+        }
     }
+
+    public class Message
+    {
+        public string Sender { get; set; }
+        public string Content { get; set; }
+        public long Timestamp { get; set; }
+    }
+
 }

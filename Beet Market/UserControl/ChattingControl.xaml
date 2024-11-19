@@ -81,6 +81,9 @@
                     </ItemsControl.Resources>
                 </ItemsControl>
             </ScrollViewer>
+            <TextBox x:Name="textBox2" IsReadOnly="True"></TextBox>
+            <TextBox x:Name="textBox1"></TextBox>
+            <Button x:Name="button1" Click="button1_Click"></Button>
         </StackPanel>
     </Grid>
 </UserControl>
