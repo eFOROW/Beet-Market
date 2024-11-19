@@ -18,7 +18,7 @@
             <StackPanel Orientation="Vertical">
                 <TextBlock Text="채팅" Margin="40,0,0,0" FontWeight="Bold" FontSize="18"/>
                 <Border BorderThickness="0.5" BorderBrush="LightGray" Margin="0,20,0,0"/>
-                <ListView ItemsSource="{Binding People}" Margin="10">
+                <ListView ItemsSource="{Binding Chatroom}" Margin="10">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -31,13 +31,13 @@
                                         </LinearGradientBrush>
                                     </Ellipse.Stroke>
                                     <Ellipse.Fill>
-                                        <ImageBrush ImageSource="{Binding Path=Age}" Stretch="UniformToFill"/>
+                                        <ImageBrush ImageSource="{Binding Path=A_imgUrl}" Stretch="UniformToFill"/>
                                     </Ellipse.Fill>
                                 </Ellipse>
                                 <!-- 텍스트 블록 두 개 -->
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="0,0,0,15">
-                                    <TextBlock Text="{Binding Name}" FontWeight="Bold" FontSize="14"/>
-                                    <TextBlock Text="{Binding Job}" FontSize="12" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding Path=A_Name}" FontWeight="Bold" FontSize="14"/>
+                                    <TextBlock Text="{Binding Path=C_Time, StringFormat={}{0:yyyy년MM월dd일 HH:mmtt 시작}}" FontSize="12" Foreground="Gray"/>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -65,6 +65,8 @@
                                 Margin="0,0,100,0"
                                 HorizontalAlignment="Left"
                                 InboundMessageBubbleFontSize="24"
+                                TextName="{Binding Name}"
+                                TextImgUrl="{Binding imgUrl}"
                                 TextMessage="{Binding Message}"
                                 TimeStamp="{Binding ReceivedTime}" />
                         </DataTemplate>

@@ -26,6 +26,22 @@ namespace Beet_Market
             InitializeComponent();
         }
 
+        public static readonly DependencyProperty TextNameProperty = DependencyProperty.Register("TextName", typeof(string), typeof(InboundMessageBubble), new PropertyMetadata(string.Empty));
+
+        public string TextName
+        {
+            get { return (string)GetValue(TextNameProperty); }
+            set { SetValue(TextNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty TextImgUrlProperty = DependencyProperty.Register("TextImgUrl", typeof(string), typeof(InboundMessageBubble), new PropertyMetadata(string.Empty));
+
+        public string TextImgUrl
+        {
+            get { return (string)GetValue(TextImgUrlProperty); }
+            set { SetValue(TextImgUrlProperty, value); }
+        }
+
         public static readonly DependencyProperty TextMessageProperty = DependencyProperty.Register("TextMessage", typeof(string), typeof(InboundMessageBubble), new UIPropertyMetadata(string.Empty));
         public string TextMessage
         {
@@ -63,7 +79,8 @@ namespace Beet_Market
 
     public class InboundMessage
     {
-        public int MessageId { set; get; }
+        public string Name { set; get; }
+        public string imgUrl { set; get; }
         public string Message { set; get; }
         public string ReceivedTime { set; get; }
     }

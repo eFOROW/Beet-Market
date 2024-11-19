@@ -12,12 +12,12 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="auto"/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Ellipse Grid.Column="0" Width="30" Height="30" Margin="0,0,0,15" StrokeThickness="2">
+        <Ellipse Width="30" Height="30" StrokeThickness="2" Grid.Column="0" VerticalAlignment="Top">
             <Ellipse.Stroke>
                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                     <GradientStop Color="#F3445A" Offset="0.0"/>
@@ -25,14 +25,16 @@
                 </LinearGradientBrush>
             </Ellipse.Stroke>
             <Ellipse.Fill>
-                <ImageBrush ImageSource="../Image/icon_gray.png" Stretch="UniformToFill"/>
+                <ImageBrush Stretch="UniformToFill" ImageSource="{Binding TextImgUrl, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}">
+                </ImageBrush>
             </Ellipse.Fill>
         </Ellipse>
         <!-- 메시지 본문 -->
+        <TextBlock Name="tbTextName" Text="{Binding TextName, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}}" Grid.Column="1" FontSize="12" TextAlignment="Left" Margin="5,0,2,2"/>
         <Border
             Grid.Row="0"
             Grid.Column="1"
-            Margin="5,5,5,5"
+            Margin="5,20,5,5"
             Padding="10"
             HorizontalAlignment="Left"
             Background="LightGray"
