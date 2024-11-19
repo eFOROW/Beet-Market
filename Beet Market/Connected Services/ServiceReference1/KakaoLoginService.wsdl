@@ -12,10 +12,23 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IChatroom_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsrm:RMAssertion xmlns:wsrm="http://schemas.xmlsoap.org/ws/2005/02/rm/policy">
+          <wsrm:InactivityTimeout Milliseconds="600000" />
+          <wsrm:AcknowledgementInterval Milliseconds="200" />
+        </wsrm:RMAssertion>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:9000/KakaoService?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:9000/KakaoService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:9000/KakaoService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/KakaoLogin" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IkakaoLogin_Open_InputMessage">
@@ -54,6 +67,30 @@
   <wsdl:message name="IkakaoLogin_ProcessUserLogin_OutputMessage">
     <wsdl:part name="parameters" element="tns:ProcessUserLoginResponse" />
   </wsdl:message>
+  <wsdl:message name="IChatroom_InsertChatRoom_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertChatRoom" />
+  </wsdl:message>
+  <wsdl:message name="IChatroom_InsertChatRoom_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertChatRoomResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatroom_GetChatRoomList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatRoomList" />
+  </wsdl:message>
+  <wsdl:message name="IChatroom_GetChatRoomList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetChatRoomListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatroom_On_InputMessage">
+    <wsdl:part name="parameters" element="tns:On" />
+  </wsdl:message>
+  <wsdl:message name="IChatroom_On_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IChatroom_Off_InputMessage">
+    <wsdl:part name="parameters" element="tns:Off" />
+  </wsdl:message>
+  <wsdl:message name="IChatroom_Off_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OffResponse" />
+  </wsdl:message>
   <wsdl:portType name="IkakaoLogin">
     <wsdl:operation name="Open">
       <wsdl:input wsaw:Action="http://tempuri.org/IkakaoLogin/Open" message="tns:IkakaoLogin_Open_InputMessage" />
@@ -78,6 +115,24 @@
     <wsdl:operation name="ProcessUserLogin">
       <wsdl:input wsaw:Action="http://tempuri.org/IkakaoLogin/ProcessUserLogin" message="tns:IkakaoLogin_ProcessUserLogin_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IkakaoLogin/ProcessUserLoginResponse" message="tns:IkakaoLogin_ProcessUserLogin_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IChatroom">
+    <wsdl:operation name="InsertChatRoom">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatroom/InsertChatRoom" message="tns:IChatroom_InsertChatRoom_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatroom/InsertChatRoomResponse" message="tns:IChatroom_InsertChatRoom_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetChatRoomList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatroom/GetChatRoomList" message="tns:IChatroom_GetChatRoomList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatroom/GetChatRoomListResponse" message="tns:IChatroom_GetChatRoomList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="On">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatroom/On" message="tns:IChatroom_On_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatroom/OnResponse" message="tns:IChatroom_On_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Off">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatroom/Off" message="tns:IChatroom_Off_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatroom/OffResponse" message="tns:IChatroom_Off_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IkakaoLogin" type="tns:IkakaoLogin">
@@ -138,8 +193,54 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IChatroom" type="tns:IChatroom">
+    <wsp:PolicyReference URI="#NetTcpBinding_IChatroom_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="InsertChatRoom">
+      <soap12:operation soapAction="http://tempuri.org/IChatroom/InsertChatRoom" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetChatRoomList">
+      <soap12:operation soapAction="http://tempuri.org/IChatroom/GetChatRoomList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="On">
+      <soap12:operation soapAction="http://tempuri.org/IChatroom/On" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Off">
+      <soap12:operation soapAction="http://tempuri.org/IChatroom/Off" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="KakaoLoginService">
     <wsdl:port name="NetTcpBinding_IkakaoLogin" binding="tns:NetTcpBinding_IkakaoLogin">
+      <soap12:address location="net.tcp://localhost:8000/KakaoService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8000/KakaoService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IChatroom" binding="tns:NetTcpBinding_IChatroom">
       <soap12:address location="net.tcp://localhost:8000/KakaoService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8000/KakaoService</wsa10:Address>

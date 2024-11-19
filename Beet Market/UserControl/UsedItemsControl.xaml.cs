@@ -23,6 +23,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using Newtonsoft.Json;
+using Beet_Market.ServiceReference1;
+using System.ComponentModel;
 
 namespace Beet_Market
 {
@@ -33,7 +35,10 @@ namespace Beet_Market
     [ClassInterface(ClassInterfaceType.None)]
     public partial class UsedItemsControl : UserControl, IUploadDialog
     {
-        private ProductInsertClient _proxy = new ProductInsertClient();        
+        private ProductInsertClient _proxy = new ProductInsertClient();
+        private ChatroomClient cr_Client = new ChatroomClient();
+
+        private KakaoManager km = KakaoManager.Instance;
 
         public ObservableCollection<Product> Items { get; set; } = new ObservableCollection<Product>();
         public Product selectedCard = null;
@@ -84,6 +89,8 @@ namespace Beet_Market
             {                
                 Items.Add(product);
             }
+
+            category_listbox.SelectedIndex = 0;
         }
 
         #region 판매글 작성 이벤트
@@ -112,6 +119,9 @@ namespace Beet_Market
             if (DrawerHost.IsRightDrawerOpen == false)
                 category_listbox.Width = 900;
             else category_listbox.Width = 800;
+
+            _proxy.On();
+            _proxy.See_insert(int.Parse(pid.Text));
         }
         #endregion
 
@@ -255,6 +265,45 @@ namespace Beet_Market
                 }
             }
         }
+
+        #region 채팅방 생성
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            cr_Client.On();
+            int p_id = int.Parse(pid.Text.ToString());
+            string a_id = uid.Text.ToString();
+
+            if (a_id == KakaoData.UserId)
+            {
+                MessageBox.Show("스스로 채팅방 생성불가", "알림");
+                return;
+            }
+
+            if (cr_Client.InsertChatRoom(p_id, a_id, KakaoData.UserId) == 0)
+                MessageBox.Show("채팅방 생성에 실패했습니다.", "알림");
+            else
+                MessageBox.Show("채팅방을 생성하였습니다.", "알림");
+
+            
+        }
+        #endregion
+
+        private void category_listbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _proxy.On();
+
+            var selectedItem = category_listbox.SelectedItem as ListBoxItem;
+            if (selectedItem != null)
+            {
+                Items.Clear();
+                string selectedCategory = selectedItem.Content.ToString();
+                Product[] temp = _proxy.GetProductCate(selectedCategory);
+                foreach (Product product in temp)
+                {
+                    Items.Add(product);
+                }
+            }            
+        }
     }
 
     public class Coordinates
@@ -289,5 +338,4 @@ namespace Beet_Market
             }
         }
     }
-
 }

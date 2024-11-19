@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
+using System.Management.Instrumentation;
 using System.Net;
 using System.Windows.Forms;
+using Beet_Market.ServiceReference1;
 using Newtonsoft.Json.Linq;
 using RestSharp;
 
@@ -11,10 +15,49 @@ namespace Beet_Market
 {
     public class KakaoManager
     {
+        #region 싱글톤
+        public static KakaoManager Instance { get; private set; } = null;
+
+        static KakaoManager() { Instance = new KakaoManager(); }
+
+
         public KakaoManager()
         {
         }
+        #endregion
 
+        #region 채팅방 리스트
+        private ChatroomClient cr_Client = new ChatroomClient();
+        public event PropertyChangedEventHandler PropertyChanged;
+        private ObservableCollection<ChatRoom> chatroom = new ObservableCollection<ChatRoom>();
+        public ObservableCollection<ChatRoom> Chatroom
+        {
+            get { return chatroom; }
+            set
+            {
+                chatroom = value;
+                OnPropertyChanged(nameof(chatroom));
+            }
+        }
+
+
+        public void Update()
+        {
+            cr_Client.On();
+
+            // Chatroom을 새로운 값으로 완전히 교체
+            var temp = cr_Client.GetChatRoomList(KakaoData.UserId);
+            Chatroom = new ObservableCollection<ChatRoom>(temp);
+        }
+        
+
+        protected void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region 카카오로그인
         public bool GetUserToKen(WebBrowser webBrowser)
         {
             string wUrl = webBrowser.Url.ToString();
@@ -101,5 +144,6 @@ namespace Beet_Market
                 MessageBox.Show("사용자 데이터를 처리하는 중 오류가 발생했습니다.");
             }
         }
+        #endregion
     }
 }

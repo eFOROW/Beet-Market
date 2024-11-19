@@ -22,6 +22,7 @@
     <MetadataSource Address="http://localhost:9000/KakaoService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="KakaoService2.xsd" MetadataType="Schema" ID="6817e5fa-b96f-4c46-938c-ad658be097da" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?xsd=xsd2" />
     <MetadataFile FileName="KakaoLoginService.wsdl" MetadataType="Wsdl" ID="da11e30c-eaa1-47b1-bb43-63265a969d15" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?wsdl" />
     <MetadataFile FileName="KakaoService.disco" MetadataType="Disco" ID="5c54cd57-1944-4d93-b571-7db80135d14d" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?disco" />
     <MetadataFile FileName="KakaoService.xsd" MetadataType="Schema" ID="5aa71c14-d901-437b-bb5a-2a7d051c5b48" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?xsd=xsd1" />

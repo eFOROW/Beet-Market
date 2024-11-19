@@ -55,7 +55,7 @@
                     ToolTip="MaterialDesignIconButton">
                     <materialDesign:PackIcon Kind="Reload" />
                 </Button>
-                <ListBox x:Name="category_listbox" SelectionMode="Single" Style="{StaticResource MaterialDesignFilterChipPrimaryListBox}" VerticalAlignment="Center">
+                <ListBox x:Name="category_listbox" SelectionChanged="category_listbox_SelectionChanged" SelectionMode="Single" Style="{StaticResource MaterialDesignFilterChipPrimaryListBox}" VerticalAlignment="Center">
                     <ListBoxItem Content="전체보기" IsSelected="True" />
                     <ListBoxItem Content="디지털기기" />
                     <ListBoxItem Content="생활가전" />
@@ -254,6 +254,8 @@
                             </Ellipse.Fill>
                         </Ellipse>
                         <TextBlock FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" Margin="0,0,0,15" Text="{Binding Path=U_Nickname}"></TextBlock>
+                        <TextBlock x:Name="uid" Visibility="Collapsed" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" Margin="0,0,0,15" Text="{Binding Path=U_Id}"></TextBlock>
+                        <TextBlock x:Name="pid" Visibility="Collapsed" FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" Margin="0,0,0,15" Text="{Binding Path=P_Id}"></TextBlock>
                     </StackPanel>
                     <Rectangle Grid.Row="2" VerticalAlignment="Top" Height="1" Width="Auto" Fill="LightGray"/>
                     <StackPanel Orientation="Vertical" Grid.Row="2" Margin="15,15,15,0">
@@ -296,11 +298,14 @@
                             </Button>
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=P_See, StringFormat={}{0:0}}"></TextBlock>
                         </StackPanel>
-                        <ListBox Name="m_typeListBox" Style="{StaticResource MaterialDesignFilterChipOutlineListBox}">
+                        <ListBox Name="m_typeListBox"
+                             Style="{StaticResource MaterialDesignFilterChipOutlineListBox}"
+                             SelectionMode="Multiple">
                             <ListBoxItem Content="직거래" IsEnabled="False"/>
                             <ListBoxItem Content="비대면 직거래" IsEnabled="False"/>
                             <ListBoxItem Content="택배 배송" IsEnabled="False"/>
                         </ListBox>
+                        <TextBlock Text="{Binding How}"/>
                         <WebBrowser x:Name="webBrowser2" Margin="0,0,0,10" DataContext="{Binding Path=P_Js}" DataContextChanged="webBrowser2_DataContextChanged"/>
                         <Rectangle Margin="10" VerticalAlignment="Top" Height="1" Width="Auto" Fill="LightGray"/>
                     </StackPanel>
@@ -311,6 +316,7 @@
                         </Grid.ColumnDefinitions>
                         <TextBlock HorizontalAlignment="Left" Margin="25,10,10,10" Grid.Column="0" Foreground="DarkSlateGray" FontSize="17" TextAlignment="Center" FontWeight="DemiBold" Text="{Binding Path=Pirce, StringFormat={}{0:0}원}"></TextBlock>
                         <Button 
+                            Click="Button_Click_3"
                             HorizontalAlignment="Right"
                             Grid.Column="1"
                             Content="채팅하기"

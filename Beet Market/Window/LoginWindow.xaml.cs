@@ -49,13 +49,13 @@ namespace Beet_Market
             }
 
             ((IkakaoLogin)_proxy).Open();
-            if(_proxy.User_Select(KakaoData.UserId))
+            if(((IkakaoLogin)_proxy).User_Select(KakaoData.UserId))
             {
-                _proxy.User_Update(KakaoData.UserId, KakaoData.UserNickName, KakaoData.UserImg);
+                ((IkakaoLogin)_proxy).User_Update(KakaoData.UserId, KakaoData.UserNickName, KakaoData.UserImg);
             }
             else
             {
-                _proxy.User_Insert(KakaoData.UserId, KakaoData.UserNickName, KakaoData.UserImg);
+                ((IkakaoLogin)_proxy).User_Insert(KakaoData.UserId, KakaoData.UserNickName, KakaoData.UserImg);
             }
             ((IkakaoLogin)_proxy).Close();
 

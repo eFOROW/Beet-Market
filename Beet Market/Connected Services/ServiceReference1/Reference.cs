@@ -9,7 +9,151 @@
 //------------------------------------------------------------------------------
 
 namespace Beet_Market.ServiceReference1 {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ChatRoom", Namespace="http://schemas.datacontract.org/2004/07/KakaoLogin")]
+    [System.SerializableAttribute()]
+    public partial class ChatRoom : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string A_NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string A_imgUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime C_DtField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string J_NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string J_imgUrlField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int P_IdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TagField;
+
+
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string A_Name {
+            get {
+                return this.A_NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.A_NameField, value) != true)) {
+                    this.A_NameField = value;
+                    this.RaisePropertyChanged("A_Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string A_imgUrl {
+            get {
+                return this.A_imgUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.A_imgUrlField, value) != true)) {
+                    this.A_imgUrlField = value;
+                    this.RaisePropertyChanged("A_imgUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime C_Dt {
+            get {
+                return this.C_DtField;
+            }
+            set {
+                if ((this.C_DtField.Equals(value) != true)) {
+                    this.C_DtField = value;
+                    this.RaisePropertyChanged("C_Dt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string J_Name {
+            get {
+                return this.J_NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.J_NameField, value) != true)) {
+                    this.J_NameField = value;
+                    this.RaisePropertyChanged("J_Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string J_imgUrl {
+            get {
+                return this.J_imgUrlField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.J_imgUrlField, value) != true)) {
+                    this.J_imgUrlField = value;
+                    this.RaisePropertyChanged("J_imgUrl");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int P_Id {
+            get {
+                return this.P_IdField;
+            }
+            set {
+                if ((this.P_IdField.Equals(value) != true)) {
+                    this.P_IdField = value;
+                    this.RaisePropertyChanged("P_Id");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Tag {
+            get {
+                return this.TagField;
+            }
+            set {
+                if ((this.TagField.Equals(value) != true)) {
+                    this.TagField = value;
+                    this.RaisePropertyChanged("Tag");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IkakaoLogin")]
@@ -83,7 +227,7 @@ namespace Beet_Market.ServiceReference1 {
             return base.Channel.Open();
         }
         
-        public System.Threading.Tasks.Task<bool> OpenAsync() {
+        System.Threading.Tasks.Task<bool> IkakaoLogin.OpenAsync() {
             return base.Channel.OpenAsync();
         }
         
@@ -91,40 +235,129 @@ namespace Beet_Market.ServiceReference1 {
             return base.Channel.Close();
         }
         
-        public System.Threading.Tasks.Task<bool> CloseAsync() {
+        System.Threading.Tasks.Task<bool> IkakaoLogin.CloseAsync() {
             return base.Channel.CloseAsync();
         }
         
-        public bool User_Select(string userId) {
+        bool IkakaoLogin.User_Select(string userId) {
             return base.Channel.User_Select(userId);
         }
         
-        public System.Threading.Tasks.Task<bool> User_SelectAsync(string userId) {
+        System.Threading.Tasks.Task<bool> IkakaoLogin.User_SelectAsync(string userId) {
             return base.Channel.User_SelectAsync(userId);
         }
         
-        public void User_Update(string userId, string userNickName, string userImg) {
+        void IkakaoLogin.User_Update(string userId, string userNickName, string userImg) {
             base.Channel.User_Update(userId, userNickName, userImg);
         }
         
-        public System.Threading.Tasks.Task User_UpdateAsync(string userId, string userNickName, string userImg) {
+        System.Threading.Tasks.Task IkakaoLogin.User_UpdateAsync(string userId, string userNickName, string userImg) {
             return base.Channel.User_UpdateAsync(userId, userNickName, userImg);
         }
         
-        public void User_Insert(string userId, string userNickName, string userImg) {
+        void IkakaoLogin.User_Insert(string userId, string userNickName, string userImg) {
             base.Channel.User_Insert(userId, userNickName, userImg);
         }
         
-        public System.Threading.Tasks.Task User_InsertAsync(string userId, string userNickName, string userImg) {
+        System.Threading.Tasks.Task IkakaoLogin.User_InsertAsync(string userId, string userNickName, string userImg) {
             return base.Channel.User_InsertAsync(userId, userNickName, userImg);
         }
         
-        public void ProcessUserLogin(string userId, string userNickName, string userImg) {
+        void IkakaoLogin.ProcessUserLogin(string userId, string userNickName, string userImg) {
             base.Channel.ProcessUserLogin(userId, userNickName, userImg);
         }
         
-        public System.Threading.Tasks.Task ProcessUserLoginAsync(string userId, string userNickName, string userImg) {
+        System.Threading.Tasks.Task IkakaoLogin.ProcessUserLoginAsync(string userId, string userNickName, string userImg) {
             return base.Channel.ProcessUserLoginAsync(userId, userNickName, userImg);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServiceReference1.IChatroom")]
+    public interface IChatroom {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/InsertChatRoom", ReplyAction="http://tempuri.org/IChatroom/InsertChatRoomResponse")]
+        int InsertChatRoom(int p_id, string a_name, string j_name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/InsertChatRoom", ReplyAction="http://tempuri.org/IChatroom/InsertChatRoomResponse")]
+        System.Threading.Tasks.Task<int> InsertChatRoomAsync(int p_id, string a_name, string j_name);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/GetChatRoomList", ReplyAction="http://tempuri.org/IChatroom/GetChatRoomListResponse")]
+        Beet_Market.ServiceReference1.ChatRoom[] GetChatRoomList(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/GetChatRoomList", ReplyAction="http://tempuri.org/IChatroom/GetChatRoomListResponse")]
+        System.Threading.Tasks.Task<Beet_Market.ServiceReference1.ChatRoom[]> GetChatRoomListAsync(string id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/On", ReplyAction="http://tempuri.org/IChatroom/OnResponse")]
+        bool On();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/On", ReplyAction="http://tempuri.org/IChatroom/OnResponse")]
+        System.Threading.Tasks.Task<bool> OnAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/Off", ReplyAction="http://tempuri.org/IChatroom/OffResponse")]
+        bool Off();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatroom/Off", ReplyAction="http://tempuri.org/IChatroom/OffResponse")]
+        System.Threading.Tasks.Task<bool> OffAsync();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IChatroomChannel : Beet_Market.ServiceReference1.IChatroom, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ChatroomClient : System.ServiceModel.ClientBase<Beet_Market.ServiceReference1.IChatroom>, Beet_Market.ServiceReference1.IChatroom {
+        
+        public ChatroomClient() {
+        }
+        
+        public ChatroomClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public ChatroomClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ChatroomClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ChatroomClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public int InsertChatRoom(int p_id, string a_name, string j_name) {
+            return base.Channel.InsertChatRoom(p_id, a_name, j_name);
+        }
+        
+        public System.Threading.Tasks.Task<int> InsertChatRoomAsync(int p_id, string a_name, string j_name) {
+            return base.Channel.InsertChatRoomAsync(p_id, a_name, j_name);
+        }
+        
+        public Beet_Market.ServiceReference1.ChatRoom[] GetChatRoomList(string id) {
+            return base.Channel.GetChatRoomList(id);
+        }
+        
+        public System.Threading.Tasks.Task<Beet_Market.ServiceReference1.ChatRoom[]> GetChatRoomListAsync(string id) {
+            return base.Channel.GetChatRoomListAsync(id);
+        }
+        
+        public bool On() {
+            return base.Channel.On();
+        }
+        
+        public System.Threading.Tasks.Task<bool> OnAsync() {
+            return base.Channel.OnAsync();
+        }
+        
+        public bool Off() {
+            return base.Channel.Off();
+        }
+        
+        public System.Threading.Tasks.Task<bool> OffAsync() {
+            return base.Channel.OffAsync();
         }
     }
 }

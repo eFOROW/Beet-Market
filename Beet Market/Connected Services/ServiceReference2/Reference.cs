@@ -288,6 +288,12 @@ namespace Beet_Market.ServiceReference2 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/See_insert", ReplyAction="http://tempuri.org/IProductInsert/See_insertResponse")]
         System.Threading.Tasks.Task<bool> See_insertAsync(int p_id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetProductCate", ReplyAction="http://tempuri.org/IProductInsert/GetProductCateResponse")]
+        Beet_Market.ServiceReference2.Product[] GetProductCate(string Cate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetProductCate", ReplyAction="http://tempuri.org/IProductInsert/GetProductCateResponse")]
+        System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product[]> GetProductCateAsync(string Cate);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/On", ReplyAction="http://tempuri.org/IProductInsert/OnResponse")]
         bool On();
         
@@ -350,6 +356,14 @@ namespace Beet_Market.ServiceReference2 {
         
         public System.Threading.Tasks.Task<bool> See_insertAsync(int p_id) {
             return base.Channel.See_insertAsync(p_id);
+        }
+        
+        public Beet_Market.ServiceReference2.Product[] GetProductCate(string Cate) {
+            return base.Channel.GetProductCate(Cate);
+        }
+        
+        public System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product[]> GetProductCateAsync(string Cate) {
+            return base.Channel.GetProductCateAsync(Cate);
         }
         
         public bool On() {

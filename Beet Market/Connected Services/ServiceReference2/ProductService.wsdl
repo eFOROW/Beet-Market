@@ -37,6 +37,12 @@
   <wsdl:message name="IProductInsert_See_insert_OutputMessage">
     <wsdl:part name="parameters" element="tns:See_insertResponse" />
   </wsdl:message>
+  <wsdl:message name="IProductInsert_GetProductCate_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductCate" />
+  </wsdl:message>
+  <wsdl:message name="IProductInsert_GetProductCate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProductCateResponse" />
+  </wsdl:message>
   <wsdl:message name="IProductInsert_On_InputMessage">
     <wsdl:part name="parameters" element="tns:On" />
   </wsdl:message>
@@ -61,6 +67,10 @@
     <wsdl:operation name="See_insert">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductInsert/See_insert" message="tns:IProductInsert_See_insert_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IProductInsert/See_insertResponse" message="tns:IProductInsert_See_insert_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProductCate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProductInsert/GetProductCate" message="tns:IProductInsert_GetProductCate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProductInsert/GetProductCateResponse" message="tns:IProductInsert_GetProductCate_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="On">
       <wsdl:input wsaw:Action="http://tempuri.org/IProductInsert/On" message="tns:IProductInsert_On_InputMessage" />
@@ -94,6 +104,15 @@
     </wsdl:operation>
     <wsdl:operation name="See_insert">
       <soap12:operation soapAction="http://tempuri.org/IProductInsert/See_insert" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProductCate">
+      <soap12:operation soapAction="http://tempuri.org/IProductInsert/GetProductCate" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
