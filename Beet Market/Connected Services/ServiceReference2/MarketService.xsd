@@ -11,6 +11,7 @@
         <xs:element minOccurs="0" name="cate" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="how" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="u_Id" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="p_js" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -188,7 +188,7 @@
 
         <!-- 오른쪽 패널 -->
         <materialDesign:DrawerHost.RightDrawerContent>
-            <ScrollViewer Grid.Column="1" VerticalScrollBarVisibility="Auto" Width="450" Background="White">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Width="450" Background="White">
                 <ScrollViewer.Effect>
                     <DropShadowEffect ShadowDepth="-5" Direction="180" Color="Black" Opacity="0.3" BlurRadius="10" />
                 </ScrollViewer.Effect>
@@ -197,6 +197,7 @@
                         <RowDefinition Height="400"/>
                         <!-- 판매자 정보, 제목, 설명 -->
                         <RowDefinition Height="80"/>
+                        <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Image Grid.Row="0"
@@ -255,7 +256,7 @@
                         <TextBlock FontSize="16" FontWeight="DemiBold" VerticalAlignment="Center" Margin="0,0,0,15" Text="{Binding Path=U_Nickname}"></TextBlock>
                     </StackPanel>
                     <Rectangle Grid.Row="2" VerticalAlignment="Top" Height="1" Width="Auto" Fill="LightGray"/>
-                    <StackPanel Orientation="Vertical" Grid.Row="2" Margin="15">
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Margin="15,15,15,0">
                         <TextBlock x:Name="p_status"
                            Text="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}"
                            FontSize="16" FontWeight="Bold">
@@ -286,7 +287,7 @@
                             <TextBlock Text="{Binding Path=P_Dt, StringFormat=ㆍ{0:yyyy년MM월dd일 HH:mm}}"></TextBlock>
                         </StackPanel>
                         <TextBlock Margin="0,20,0,0" Text="{Binding Path=Description}"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,15,15,50">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,15,15,30">
                             <Button Width="30"
                                 Padding="2,0,2,0"
                                 materialDesign:RippleAssist.IsCentered="True"
@@ -295,7 +296,28 @@
                             </Button>
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=P_See, StringFormat={}{0:0}}"></TextBlock>
                         </StackPanel>
+                        <Rectangle Margin="10" VerticalAlignment="Top" Height="1" Width="Auto" Fill="LightGray"/>
                     </StackPanel>
+                    <Grid  Grid.Row="3" Margin="15,0,15,15">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock HorizontalAlignment="Left" Margin="25,10,10,10" Grid.Column="0" Foreground="DarkSlateGray" FontSize="17" TextAlignment="Center" FontWeight="DemiBold" Text="{Binding Path=Pirce, StringFormat={}{0:0}원}"></TextBlock>
+                        <Button 
+                            HorizontalAlignment="Right"
+                            Grid.Column="1"
+                            Content="채팅하기"
+                            Width="120"
+                            Margin="10"
+                            Foreground="White"
+                            FontWeight="DemiBold"
+                            IsEnabled="True"
+                            Background="Orange"
+                            BorderThickness="0"
+                            Style="{StaticResource MaterialDesignFlatSecondaryMidBgButton}"
+                            ToolTip="MaterialDesignFlatSecondaryMidBgButton" />
+                    </Grid>
                 </Grid>
             </ScrollViewer>
         </materialDesign:DrawerHost.RightDrawerContent>

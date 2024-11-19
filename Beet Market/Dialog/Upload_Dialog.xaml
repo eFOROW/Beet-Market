@@ -9,7 +9,7 @@
         mc:Ignorable="d"
         VerticalContentAlignment="Stretch"
         Icon="../Image/icon.png"
-        Title="내 물건 팔기" Height="750" Width="450">
+        Title="내 물건 팔기" Height="750" Width="760">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -39,27 +39,34 @@
                 VerticalScrollBarVisibility="Auto" />
         </StackPanel>
         <StackPanel Orientation="Vertical" Margin="15">
-            <TextBlock FontWeight="DemiBold" FontSize="17" Margin="5,0,0,10">사진추가</TextBlock>
-            <Button
-                x:Name="upload_end_btn"
-                Visibility="Collapsed"
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Grid.Column="0" Margin="15">
+                    <TextBlock FontWeight="DemiBold" FontSize="17" Margin="5,0,0,10">사진추가</TextBlock>
+                    <Button
+                        x:Name="upload_end_btn"
+                        Visibility="Collapsed"
+                        HorizontalAlignment="Left"
+                        Width="150"
+                        Height="35"
+                        Padding="5"
+                        Margin="5,0,0,15"
+                        Command="{Binding UploadCommand}"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"                
+                        Style="{StaticResource MaterialDesignOutlinedButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="업로드 완료" />
+                            <materialDesign:PackIcon Margin="5,0,0,0" Kind="CloudUpload" />
+                        </StackPanel>
+                    </Button>
+                    <Button
                 HorizontalAlignment="Left"
                 Width="150"
-                Height="50"
-                Padding="5"
-                Margin="5,0,0,15"
-                Command="{Binding UploadCommand}"
-                IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"                
-                Style="{StaticResource MaterialDesignOutlinedButton}">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="업로드 완료" />
-                    <materialDesign:PackIcon Margin="5,0,0,0" Kind="CloudUpload" />
-                </StackPanel>
-            </Button>
-            <Button
-                HorizontalAlignment="Left"
-                Width="150"
-                Height="50"
+                Height="35"
                 Margin="5,0,0,15"
                 Foreground="DimGray"
                 Command="{Binding UploadCommand}"
@@ -71,100 +78,108 @@
                     <materialDesign:PackIcon Margin="5,0,0,0" Kind="CloudUpload" />
                 </StackPanel>
             </Button>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="1" Margin="15" VerticalAlignment="Top">
+                    <TextBlock FontWeight="DemiBold" VerticalAlignment="Top" FontSize="17" Margin="0,0,0,10">카테고리 선택</TextBlock>
+                    <materialDesign:SplitButton Content="카테고리"
+                            x:Name="CategorySplitButton"
+                      Width="180"           
+                      HorizontalAlignment="Left"
+                      PopupUniformCornerRadius="10"
+                      PopupElevation="Dp6"
+                      PopupPlacementMode="RightAndAlignBottomEdges"                                  
+                      Style="{StaticResource MaterialDesignOutlinedSplitButton}">
+                        <materialDesign:SplitButton.PopupContent>
+                            <StackPanel>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="디지털기기">
+                                    <TextBlock Text="디지털기기" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="생활가전">
+                                    <TextBlock Text="생활가전" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="가구/인테리어">
+                                    <TextBlock Text="가구/인테리어" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="생활/주방">
+                                    <TextBlock Text="생활/주방" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="여성의류">
+                                    <TextBlock Text="여성의류" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="남성의류">
+                                    <TextBlock Text="남성의류" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="스포츠/레저">
+                                    <TextBlock Text="스포츠/레저" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="뷰티/미용">
+                                    <TextBlock Text="뷰티/미용" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="도서">
+                                    <TextBlock Text="도서" VerticalAlignment="Center" />
+                                </Button>
+                                <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
+                Style="{StaticResource MaterialDesignFlatLightButton}" 
+                ToolTip="식품">
+                                    <TextBlock Text="식품" VerticalAlignment="Center" />
+                                </Button>
+                            </StackPanel>
+                        </materialDesign:SplitButton.PopupContent>
+                    </materialDesign:SplitButton>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Grid.Column="2" Margin=" 15">
+                <TextBlock FontWeight="DemiBold" FontSize="17" Margin="0">거래방식</TextBlock>
+                <ListBox Name="typeListBox" Style="{StaticResource MaterialDesignFilterChipOutlineListBox}">
+                    <ListBoxItem Content="직거래" IsSelected="True" />
+                    <ListBoxItem Content="비대면 직거래"/>
+                    <ListBoxItem Content="택배 배송" />
+                </ListBox>
+                <TextBox
+                  x:Name="upload_price"
+                  Width="170"
+                  Margin="5" Padding="8"
+                  FontSize="15"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Center"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:TextFieldAssist.PrefixText="\"
+                  PreviewTextInput="TextBox_PreviewTextInput"
+                  Style="{StaticResource MaterialDesignOutlinedTextBox}">
+                    <materialDesign:HintAssist.Hint>
+                        <StackPanel Margin="-2,0,0,0" Orientation="Horizontal">
+                            <TextBlock Text="가격" Margin="10,0,0,0"/>
+                        </StackPanel>
+                    </materialDesign:HintAssist.Hint>
+                </TextBox>
+            </StackPanel>
+            </Grid>
 
-            <TextBlock FontWeight="DemiBold" FontSize="17" Margin="5,0,0,10">거래방식</TextBlock>
-            <ListBox Name="typeListBox" Style="{StaticResource MaterialDesignFilterChipOutlineListBox}">
-                <ListBoxItem Content="직거래" IsSelected="True" />
-                <ListBoxItem Content="비대면 직거래"/>
-                <ListBoxItem Content="택배 배송" />
-            </ListBox>
-            <TextBox
-              x:Name="upload_price"
-              Width="140"
-              Margin="5" Padding="8"
-              FontSize="15"
-              HorizontalAlignment="Left"
-              VerticalAlignment="Center"
-              materialDesign:TextFieldAssist.HasClearButton="True"
-              materialDesign:TextFieldAssist.PrefixText="\"
-              PreviewTextInput="TextBox_PreviewTextInput"
-              Style="{StaticResource MaterialDesignOutlinedTextBox}">
-                <materialDesign:HintAssist.Hint>
-                    <StackPanel Margin="-2,0,0,0" Orientation="Horizontal">
-                        <TextBlock Text="가격" Margin="10,0,0,0"/>
-                    </StackPanel>
-                </materialDesign:HintAssist.Hint>
-            </TextBox>
+
         </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="15">
-            <TextBlock FontWeight="DemiBold" FontSize="17" Margin="0,0,0,10">카테고리 선택</TextBlock>
-            <materialDesign:SplitButton Content="카테고리"
-                                        x:Name="CategorySplitButton"
-                                  Width="180"           
-                                  HorizontalAlignment="Left"
-                                  PopupUniformCornerRadius="10"
-                                  PopupElevation="Dp6"
-                                  PopupPlacementMode="RightAndAlignBottomEdges"                                  
-                                  Style="{StaticResource MaterialDesignOutlinedSplitButton}">
-                <materialDesign:SplitButton.PopupContent>
-                    <StackPanel>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="디지털기기">
-                            <TextBlock Text="디지털기기" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="생활가전">
-                            <TextBlock Text="생활가전" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="가구/인테리어">
-                            <TextBlock Text="가구/인테리어" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="생활/주방">
-                            <TextBlock Text="생활/주방" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="여성의류">
-                            <TextBlock Text="여성의류" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="남성의류">
-                            <TextBlock Text="남성의류" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="스포츠/레저">
-                            <TextBlock Text="스포츠/레저" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="뷰티/미용">
-                            <TextBlock Text="뷰티/미용" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="도서">
-                            <TextBlock Text="도서" VerticalAlignment="Center" />
-                        </Button>
-                        <Button Width="Auto" Margin="7" Foreground="Black" Click="CategoryButton_Click"
-                            Style="{StaticResource MaterialDesignFlatLightButton}" 
-                            ToolTip="식품">
-                            <TextBlock Text="식품" VerticalAlignment="Center" />
-                        </Button>
-                    </StackPanel>
-                </materialDesign:SplitButton.PopupContent>
-            </materialDesign:SplitButton>
-            <TextBlock FontWeight="DemiBold" FontSize="17" Margin="0,15,0,10">자세한 설명</TextBlock>
+        <StackPanel Orientation="Vertical" Margin="15,0,0,0">
+            <TextBlock FontWeight="DemiBold" FontSize="17" Margin="10,0,10,10">자세한 설명</TextBlock>
             <TextBox
+                Margin="0,0,15,0"
                 x:Name="upload_descript"
-                Height="150"
+                Height="100"
                 VerticalAlignment="Top"
                 AcceptsReturn="True"
                 materialDesign:HintAssist.Hint="게시글 내용"
@@ -173,6 +188,11 @@
                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
                 TextWrapping="Wrap"
                 VerticalScrollBarVisibility="Auto" />
+
+            <!-- 지도 -->
+            <TextBlock FontWeight="DemiBold" FontSize="17" Margin="0,15,0,10">장소 선택</TextBlock>
+            <WebBrowser x:Name="webBrowser1" Margin="0,0,0,10"/>
+
             <Button Margin="0,20,0,0" Content="작성완료" Foreground="White" FontWeight="DemiBold" Click="Button_Click"/>
         </StackPanel>
     </StackPanel>

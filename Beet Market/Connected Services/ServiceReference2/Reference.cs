@@ -53,13 +53,10 @@ namespace Beet_Market.ServiceReference2 {
         private int P_StatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string P_JsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime P_DtField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string U_ImgField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string U_NicknameField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -202,6 +199,19 @@ namespace Beet_Market.ServiceReference2 {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(Order=10)]
+        public string P_Js {
+            get {
+                return this.P_JsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.P_JsField, value) != true)) {
+                    this.P_JsField = value;
+                    this.RaisePropertyChanged("P_Js");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
         public System.DateTime P_Dt {
             get {
                 return this.P_DtField;
@@ -210,32 +220,6 @@ namespace Beet_Market.ServiceReference2 {
                 if ((this.P_DtField.Equals(value) != true)) {
                     this.P_DtField = value;
                     this.RaisePropertyChanged("P_Dt");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Order=11)]
-        public string U_Img {
-            get {
-                return this.U_ImgField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.U_ImgField, value) != true)) {
-                    this.U_ImgField = value;
-                    this.RaisePropertyChanged("U_Img");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
-        public string U_Nickname {
-            get {
-                return this.U_NicknameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.U_NicknameField, value) != true)) {
-                    this.U_NicknameField = value;
-                    this.RaisePropertyChanged("U_Nickname");
                 }
             }
         }
@@ -255,10 +239,10 @@ namespace Beet_Market.ServiceReference2 {
     public interface IProductInsert {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/InsertProduct", ReplyAction="http://tempuri.org/IProductInsert/InsertProductResponse")]
-        bool InsertProduct(string title, string img, string description, int pirce, string cate, string how, string u_Id);
+        bool InsertProduct(string title, string img, string description, int pirce, string cate, string how, string u_Id, string p_js);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/InsertProduct", ReplyAction="http://tempuri.org/IProductInsert/InsertProductResponse")]
-        System.Threading.Tasks.Task<bool> InsertProductAsync(string title, string img, string description, int pirce, string cate, string how, string u_Id);
+        System.Threading.Tasks.Task<bool> InsertProductAsync(string title, string img, string description, int pirce, string cate, string how, string u_Id, string p_js);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetProductList", ReplyAction="http://tempuri.org/IProductInsert/GetProductListResponse")]
         Beet_Market.ServiceReference2.Product[] GetProductList();
@@ -312,12 +296,12 @@ namespace Beet_Market.ServiceReference2 {
                 base(binding, remoteAddress) {
         }
         
-        public bool InsertProduct(string title, string img, string description, int pirce, string cate, string how, string u_Id) {
-            return base.Channel.InsertProduct(title, img, description, pirce, cate, how, u_Id);
+        public bool InsertProduct(string title, string img, string description, int pirce, string cate, string how, string u_Id, string p_js) {
+            return base.Channel.InsertProduct(title, img, description, pirce, cate, how, u_Id, p_js);
         }
         
-        public System.Threading.Tasks.Task<bool> InsertProductAsync(string title, string img, string description, int pirce, string cate, string how, string u_Id) {
-            return base.Channel.InsertProductAsync(title, img, description, pirce, cate, how, u_Id);
+        public System.Threading.Tasks.Task<bool> InsertProductAsync(string title, string img, string description, int pirce, string cate, string how, string u_Id, string p_js) {
+            return base.Channel.InsertProductAsync(title, img, description, pirce, cate, how, u_Id, p_js);
         }
         
         public Beet_Market.ServiceReference2.Product[] GetProductList() {
