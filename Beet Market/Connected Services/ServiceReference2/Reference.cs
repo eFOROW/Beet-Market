@@ -58,6 +58,12 @@ namespace Beet_Market.ServiceReference2 {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime P_DtField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string U_ImgField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string U_NicknameField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -220,6 +226,32 @@ namespace Beet_Market.ServiceReference2 {
                 if ((this.P_DtField.Equals(value) != true)) {
                     this.P_DtField = value;
                     this.RaisePropertyChanged("P_Dt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=12)]
+        public string U_Img {
+            get {
+                return this.U_ImgField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.U_ImgField, value) != true)) {
+                    this.U_ImgField = value;
+                    this.RaisePropertyChanged("U_Img");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=13)]
+        public string U_Nickname {
+            get {
+                return this.U_NicknameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.U_NicknameField, value) != true)) {
+                    this.U_NicknameField = value;
+                    this.RaisePropertyChanged("U_Nickname");
                 }
             }
         }

@@ -287,7 +287,7 @@
                             <TextBlock Text="{Binding Path=P_Dt, StringFormat=ㆍ{0:yyyy년MM월dd일 HH:mm}}"></TextBlock>
                         </StackPanel>
                         <TextBlock Margin="0,20,0,0" Text="{Binding Path=Description}"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,15,15,30">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,15,15,5">
                             <Button Width="30"
                                 Padding="2,0,2,0"
                                 materialDesign:RippleAssist.IsCentered="True"
@@ -296,6 +296,12 @@
                             </Button>
                             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=P_See, StringFormat={}{0:0}}"></TextBlock>
                         </StackPanel>
+                        <ListBox Name="m_typeListBox" Style="{StaticResource MaterialDesignFilterChipOutlineListBox}">
+                            <ListBoxItem Content="직거래" IsEnabled="False"/>
+                            <ListBoxItem Content="비대면 직거래" IsEnabled="False"/>
+                            <ListBoxItem Content="택배 배송" IsEnabled="False"/>
+                        </ListBox>
+                        <WebBrowser x:Name="webBrowser2" Margin="0,0,0,10" DataContext="{Binding Path=P_Js}" DataContextChanged="webBrowser2_DataContextChanged"/>
                         <Rectangle Margin="10" VerticalAlignment="Top" Height="1" Width="Auto" Fill="LightGray"/>
                     </StackPanel>
                     <Grid  Grid.Row="3" Margin="15,0,15,15">

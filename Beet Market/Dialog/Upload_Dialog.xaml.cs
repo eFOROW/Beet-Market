@@ -92,7 +92,7 @@ namespace Beet_Market
                     // ListBoxItem으로 캐스팅하여 Content 값 추출
                     if (item is ListBoxItem listBoxItem)
                     {
-                        selectedContents.Add(listBoxItem.Content.ToString());
+                        selectedContents.Add(listBoxItem.Content.ToString());                        
                     }
                 }
 
@@ -156,21 +156,36 @@ namespace Beet_Market
                 return;
             }
 
+            // 장소
+            if(marker == null)
+            {
+                MessageBox.Show("장소를 선택해주세요", "알림");
+                return;
+            }
+            var jsonObject = new
+            {
+                Lat = marker.Value.Lat,
+                Lng = marker.Value.Lng
+            };
+
+            // JSON 객체를 문자열로 직렬화
+            string json = JsonConvert.SerializeObject(jsonObject);
+
 
             // 전부 이상없음
             //MessageBox.Show($"제목 : {title}\n가격 : {price}\n거래방식 : {string.Join(", ", selectedContents)}\n" +
             //    $"이미지url : {imgUrl}\n카테고리 : {category}\n내용 : {description}");
 
 
-            //if(_proxy.InsertProduct(title, imgUrl, description, price, category, string.Join(", ", selectedContents), KakaoData.UserId))
-            //{
-            //    _proxy.Off();
-            //    this.Close();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("게시글 업로드 실패", "오류");
-            //}
+            if (_proxy.InsertProduct(title, imgUrl, description, price, category, string.Join(", ", selectedContents), KakaoData.UserId, json))
+            {
+                _proxy.Off();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("게시글 업로드 실패", "오류");
+            }
         }
         #endregion
 

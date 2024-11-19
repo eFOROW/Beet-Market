@@ -20,6 +20,8 @@
       <xs:element minOccurs="0" name="P_Status" type="xs:int" />
       <xs:element minOccurs="0" name="P_Js" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="P_Dt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="U_Img" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="U_Nickname" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Product" nillable="true" type="tns:Product" />

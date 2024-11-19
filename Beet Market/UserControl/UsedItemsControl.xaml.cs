@@ -1,5 +1,6 @@
 ﻿using Beet_Market.ServiceReference2;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Win32;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,18 +21,26 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace Beet_Market
 {
     /// <summary>
     /// UsedItemsControl.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class UsedItemsControl : UserControl
+    [ComVisible(true)]
+    [ClassInterface(ClassInterfaceType.None)]
+    public partial class UsedItemsControl : UserControl, IUploadDialog
     {
         private ProductInsertClient _proxy = new ProductInsertClient();        
 
         public ObservableCollection<Product> Items { get; set; } = new ObservableCollection<Product>();
         public Product selectedCard = null;
+
+        // 지도용
+        private (double Lat, double Lng)? marker = null; // 하나의 마커 좌표 저장
+        private ProductInsertClient Pc = new ProductInsertClient();
 
         public UsedItemsControl()
         {
@@ -60,6 +70,10 @@ namespace Beet_Market
             Update();
 
             this.DataContext = this;
+
+            WebBrowserVersionSetting();
+            InitializeWebBrowser();
+            LoadMap();
         }
 
         private void Update()
@@ -107,7 +121,6 @@ namespace Beet_Market
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             _proxy.On();
-            _proxy.See_insert(selectedCard.P_Id);
             Update();
         }
         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -116,23 +129,138 @@ namespace Beet_Market
         }
         #endregion
 
-        #region 거리상태표시
-        //private void TextBlock_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    switch(p_status.Text)
-        //    {
-        //        case "판매중":
-        //            p_status.Foreground = new SolidColorBrush(Colors.DimGray);
-        //            break;
-        //        case "예약중":
-        //            p_status.Foreground = new SolidColorBrush(Colors.Green);
-        //            break;
-        //        case "거래완료":
-        //            p_status.Foreground = new SolidColorBrush(Colors.LightGray);
-        //            break;
-        //    }
-        //}
+        #region 지도
+        private void LoadMap()
+        {
+            string html = @"
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset=""utf-8"">
+                    <title>Kakao Map</title>
+                    <script type=""text/javascript"" src=""https://dapi.kakao.com/v2/maps/sdk.js?appkey=49ddc3469ac5358a3ed1a148416dd8c1""></script>
+                    <style>
+                        html, body {
+                            width: 100%;
+                            height: 100%;
+                            margin: 0;
+                            padding: 0;
+                        }
+                        #map {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <div id=""map""></div>
+                    <script>
+                        let map, marker = null;
+                        const mapContainer = document.getElementById('map');
+                        const mapOptions = {
+                            center: new kakao.maps.LatLng(36.336375081991022, 127.44627110365974),
+                            level: 3
+                        };
+
+                        map = new kakao.maps.Map(mapContainer, mapOptions);
+
+                        // 지도 클릭 이벤트
+                        kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                            const latlng = mouseEvent.latLng;
+                            addMarker(latlng.getLat(), latlng.getLng());
+                            // 마커 좌표를 C#으로 전송
+                            window.external.AddMarker(latlng.getLat(), latlng.getLng());
+                        });
+
+                        // 하나의 마커만 추가
+                        function addMarker(lat, lng) {
+                            // 기존 마커 제거
+                            if (marker) {
+                                marker.setMap(null);
+                            }
+                            // 새 마커 추가
+                            marker = new kakao.maps.Marker({
+                                position: new kakao.maps.LatLng(lat, lng),
+                                map: map
+                            });
+                        }
+
+                        // 저장된 마커를 지도에 추가
+                        function loadMarker(lat, lng) {
+                            addMarker(lat, lng);
+                        }
+                    </script>
+                </body>
+                </html>";
+
+            // HTML 파일을 임시 디렉토리에 저장
+            string desktopPath = @"C:\Temp";
+            string tempPath = System.IO.Path.Combine(desktopPath, "map.html");
+            File.WriteAllText(tempPath, html);
+
+            // WebBrowser에서 HTML 파일 로드
+            webBrowser2.Navigate(tempPath);
+        }
+
+        private void InitializeWebBrowser()
+        {
+            webBrowser2.ObjectForScripting = this; // JavaScript에서 C# 메서드 호출 가능
+        }
+
+        private void WebBrowserVersionSetting()
+        {
+            string appName = System.IO.Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
+            using (RegistryKey key = Registry.CurrentUser.CreateSubKey(@"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION"))
+            {
+                key.SetValue(appName, 11001, RegistryValueKind.DWord); // IE11 엔진 사용
+            }
+        }
+
+        public void AddMarker(double lat, double lng)
+        {
+            marker = (lat, lng); // 하나의 마커 좌표 저장
+                                 // 이후 WebBrowser에 저장된 좌표를 보내는 로직
+                                 // JavaScript에서 마커 추가
+            webBrowser2.InvokeScript("loadMarker", lat, lng); // JavaScript 함수 호출
+        }
         #endregion
+
+        private void webBrowser2_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            // P_Js가 DataContext로 바인딩된 JSON 문자열이라고 가정
+            if (e.NewValue is string jsonString)
+            {
+                try
+                {
+                    // JSON 문자열을 객체로 변환 (예: {"lat": 37.7749, "lng": -122.4194})
+                    var coordinates = JsonConvert.DeserializeObject<Coordinates>(jsonString);
+
+                    if (coordinates != null)
+                    {
+                        // 기존 marker 상태 확인
+                        if (marker.HasValue && (marker.Value.Lat == coordinates.Lat && marker.Value.Lng == coordinates.Lng))
+                        {
+                            // 동일한 좌표일 경우, 호출하지 않음
+                            return;
+                        }
+
+                        // AddMarker 메서드를 호출하여 마커를 지도에 추가
+                        AddMarker(coordinates.Lat, coordinates.Lng);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 예외 처리 (잘못된 JSON 형식이나 다른 오류 발생 시)
+                    Debug.WriteLine("JSON 파싱 오류: " + ex.Message);
+                }
+            }
+        }
+    }
+
+    public class Coordinates
+    {
+        public double Lat { get; set; }
+        public double Lng { get; set; }
     }
 
     public class StatusConverter : IValueConverter
@@ -161,4 +289,5 @@ namespace Beet_Market
             }
         }
     }
+
 }
