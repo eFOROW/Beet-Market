@@ -47,7 +47,16 @@ namespace Beet_Market
 
             // Chatroom을 새로운 값으로 완전히 교체
             var temp = cr_Client.GetChatRoomList(KakaoData.UserId);
-            Chatroom = new ObservableCollection<ChatRoom>(temp);
+            Chatroom.Clear();
+            foreach (ChatRoom room in temp)
+            {
+                if(room.A_Name == KakaoData.UserNickName)
+                {
+                    Chatroom.Add(new ChatRoom (){P_Id = room.P_Id, A_Name = room.J_Name, A_imgUrl = room.J_imgUrl, Tag = room.Tag});
+                }
+                else
+                    Chatroom.Add(room);
+            }
         }
         
 

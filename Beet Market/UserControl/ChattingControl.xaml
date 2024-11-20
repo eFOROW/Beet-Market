@@ -31,7 +31,7 @@
                         VerticalAlignment="Center"
                         Click="Button_Click"
                         Margin="0,0,20,0"
-                        Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                        Background="white"
                         IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                         Style="{StaticResource MaterialDesignIconButton}"
                         ToolTip="MaterialDesignIconButton">
@@ -161,9 +161,9 @@
                     TextWrapping="Wrap"
                     VerticalScrollBarVisibility="Auto" />
                 <Button x:Name="button1" Grid.Column="1" Click="button1_Click"
-                  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
-                  Style="{StaticResource MaterialDesignIconForegroundButton}"
-                  ToolTip="MaterialDesignIconForegroundButton">
+                      IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                      Style="{StaticResource MaterialDesignIconForegroundButton}"
+                      ToolTip="MaterialDesignIconForegroundButton">
                     <materialDesign:PackIcon Kind="Send" />
                 </Button>
             </Grid>

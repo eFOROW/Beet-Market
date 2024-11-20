@@ -70,7 +70,6 @@ namespace Beet_Market
         }
         #endregion
 
-
         #region 거래상태수정
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -115,5 +114,10 @@ namespace Beet_Market
             }
         }
         #endregion
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            Update();
+        }
     }
 }

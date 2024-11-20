@@ -223,6 +223,7 @@ namespace Beet_Market
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             km.Update();
+            Chatroom = km.Chatroom;
         }
     }
 
