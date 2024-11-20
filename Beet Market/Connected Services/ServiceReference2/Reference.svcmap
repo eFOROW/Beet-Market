@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:9100/MarketService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="MarketService.xsd" MetadataType="Schema" ID="67e06a3b-63ab-466e-babb-d4878a31f293" SourceId="1" SourceUrl="http://localhost:9100/MarketService?xsd=xsd0" />
-    <MetadataFile FileName="MarketService1.xsd" MetadataType="Schema" ID="bfe4ca51-5380-4f48-83dd-9298a9d63099" SourceId="1" SourceUrl="http://localhost:9100/MarketService?xsd=xsd1" />
-    <MetadataFile FileName="MarketService2.xsd" MetadataType="Schema" ID="ceef7e38-3011-436d-91ee-ab3cc9c5e7db" SourceId="1" SourceUrl="http://localhost:9100/MarketService?xsd=xsd2" />
-    <MetadataFile FileName="ProductService.wsdl" MetadataType="Wsdl" ID="0b1c7e5a-30ce-4dd7-b15d-ca9805297d41" SourceId="1" SourceUrl="http://localhost:9100/MarketService?wsdl" />
-    <MetadataFile FileName="MarketService.disco" MetadataType="Disco" ID="0ebc8f21-01d7-4940-9d20-d97840682738" SourceId="1" SourceUrl="http://localhost:9100/MarketService?disco" />
+    <MetadataFile FileName="MarketService1.disco" MetadataType="Disco" ID="0be34655-6186-472d-adef-41e3b5329c05" SourceId="1" SourceUrl="http://10.101.39.115:9100/MarketService?disco" />
+    <MetadataFile FileName="ProductService1.wsdl" MetadataType="Wsdl" ID="50254a31-b701-4dc8-b280-3c4f7cb76b7d" SourceId="1" SourceUrl="http://10.101.39.115:9100/MarketService?wsdl" />
+    <MetadataFile FileName="MarketService3.xsd" MetadataType="Schema" ID="9a793bf9-966f-4a33-9106-9e2ef4b828e1" SourceId="1" SourceUrl="http://10.101.39.115:9100/MarketService?xsd=xsd2" />
+    <MetadataFile FileName="MarketService31.xsd" MetadataType="Schema" ID="cdb98063-7748-4e54-92c3-10d0f8031692" SourceId="1" SourceUrl="http://10.101.39.115:9100/MarketService?xsd=xsd1" />
+    <MetadataFile FileName="MarketService32.xsd" MetadataType="Schema" ID="47b33dbf-944d-44cf-b603-1549bd4cfdcf" SourceId="1" SourceUrl="http://10.101.39.115:9100/MarketService?xsd=xsd0" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

@@ -23,7 +23,6 @@ namespace Beet_Market
     /// </summary>
     public partial class MyBeetControl : UserControl
     {
-        //public ObservableCollection<Item> Items { get; set; }
         public ObservableCollection<Product> Items { get; set; } = new ObservableCollection<Product>();
         private ProductInsertClient _client = new ProductInsertClient();
         public UserData userdata = new UserData();
@@ -32,17 +31,9 @@ namespace Beet_Market
         {
             InitializeComponent();
 
-            //Items = new ObservableCollection<Item>
-            //{
-            //    new Item("아이폰 15 팔아요", DateTime.Parse("2024-11-12 14:30:45"), "https://media.bunjang.co.kr/product/250577323_1_1705929449_w1200.jpg?crop=0", 120, 350000),
-            //    new Item("냉장고 안써서 싸게 드려요", DateTime.Parse("2024-11-14 10:05:10"), "https://m.happydreammarket.co.kr/web/product/big/20200624/a16ec862290774ee3002b714c1c09b9d.jpg", 85, 150000),                
-            //    new Item("LG 43인치 TV 팝니다", DateTime.Parse("2024-11-16 16:45:30"), "https://media.bunjang.co.kr/product/296219301_1_1730447137_w360.jpg", 200, 400000),
-
-            //};
-
             this.DataContext = this;
             profile_grid.DataContext = userdata;
-            Update();            
+            Update();
         }
 
         private void Update()
@@ -75,6 +66,52 @@ namespace Beet_Market
                         MessageBox.Show("삭제에 실패하였습니다\n다시 시도해주세요!", "오류");
                     _client.Off();                   
                 }
+            }
+        }
+        #endregion
+
+
+        #region 거래상태수정
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Product selectedCard = (sender as FrameworkElement).DataContext as Product;
+            // sender는 클릭된 MenuItem
+            MenuItem clickedItem = sender as MenuItem;
+
+            // 클릭된 MenuItem의 Header 값을 확인하여 조건문으로 분기
+            if (clickedItem != null)
+            {
+                string header = clickedItem.Header.ToString();
+
+                _client.On();
+                switch (header)
+                {
+                    case "판매중":
+                        // "판매중" 클릭 처리
+                        if (_client.UpdateProduct(selectedCard.P_Id, 0))
+                            MessageBox.Show("'판매중'으로 변경하였습니다", "알림");
+                        else
+                            MessageBox.Show("상태 변경에 실패하였습니다", "알림");
+                        break;
+
+                    case "예약중":
+                        // "예약중" 클릭 처리
+                        if (_client.UpdateProduct(selectedCard.P_Id, 1))
+                            MessageBox.Show("'예약중'으로 변경하였습니다", "알림");
+                        else
+                            MessageBox.Show("상태 변경에 실패하였습니다", "알림");
+                        break;
+
+                    case "거래완료":
+                        // "거래완료" 클릭 처리
+                        if (_client.UpdateProduct(selectedCard.P_Id, 2))
+                            MessageBox.Show("'거래완료'로 변경하였습니다", "알림");
+                        else
+                            MessageBox.Show("상태 변경에 실패하였습니다", "알림");
+                        break;
+                }
+                _client.Off();
+                Update();
             }
         }
         #endregion

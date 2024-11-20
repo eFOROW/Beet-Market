@@ -22,11 +22,11 @@
     <MetadataSource Address="http://localhost:9000/KakaoService" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="KakaoService2.xsd" MetadataType="Schema" ID="6817e5fa-b96f-4c46-938c-ad658be097da" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?xsd=xsd2" />
-    <MetadataFile FileName="KakaoLoginService.wsdl" MetadataType="Wsdl" ID="da11e30c-eaa1-47b1-bb43-63265a969d15" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?wsdl" />
-    <MetadataFile FileName="KakaoService.disco" MetadataType="Disco" ID="5c54cd57-1944-4d93-b571-7db80135d14d" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?disco" />
-    <MetadataFile FileName="KakaoService.xsd" MetadataType="Schema" ID="5aa71c14-d901-437b-bb5a-2a7d051c5b48" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?xsd=xsd1" />
-    <MetadataFile FileName="KakaoService1.xsd" MetadataType="Schema" ID="24bb305b-e190-4620-b6ad-9b092c59ea0e" SourceId="1" SourceUrl="http://localhost:9000/KakaoService?xsd=xsd0" />
+    <MetadataFile FileName="KakaoService3.xsd" MetadataType="Schema" ID="29ceee92-3ff5-484e-95b7-16ab35ddea95" SourceId="1" SourceUrl="http://10.101.39.115:9000/KakaoService?xsd=xsd0" />
+    <MetadataFile FileName="KakaoLoginService1.wsdl" MetadataType="Wsdl" ID="b726bc9a-175d-4242-b23c-89c52855de13" SourceId="1" SourceUrl="http://10.101.39.115:9000/KakaoService?wsdl" />
+    <MetadataFile FileName="KakaoService31.xsd" MetadataType="Schema" ID="17f6634d-f8ba-4099-974a-2dd087e56598" SourceId="1" SourceUrl="http://10.101.39.115:9000/KakaoService?xsd=xsd1" />
+    <MetadataFile FileName="KakaoService32.xsd" MetadataType="Schema" ID="724fdb1c-d38a-4bc3-bb22-b83f23272d41" SourceId="1" SourceUrl="http://10.101.39.115:9000/KakaoService?xsd=xsd2" />
+    <MetadataFile FileName="KakaoService1.disco" MetadataType="Disco" ID="edb67288-cba1-49e7-b245-bf45e84da8ef" SourceId="1" SourceUrl="http://10.101.39.115:9000/KakaoService?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

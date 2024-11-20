@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Card.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.PopupBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <local:StatusConverter x:Key="StatusConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
@@ -64,7 +65,6 @@
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="1*"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="auto"/>
@@ -73,13 +73,36 @@
                                     <Image Grid.Row="0" Source="{Binding Path=Img}" Stretch="Uniform"/>
 
 
-                                    <TextBlock Text="{Binding Path=Title}"
-                                       Grid.Row="1" 
-                                       VerticalAlignment="Top"                                   
-                                       FontWeight="DemiBold"
-                                       FontSize="18"
-                                       Margin="10"
-                                       TextWrapping="Wrap"/>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                        <TextBlock Margin="10" FontSize="14" FontWeight="DemiBold"  VerticalAlignment="Center" Text="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Style.Triggers>
+                                                        <!-- '판매중'일 때 색상 -->
+                                                        <DataTrigger Binding="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}" Value="판매중">
+                                                            <Setter Property="Foreground" Value="DimGray"/>
+                                                        </DataTrigger>
+                                                        <!-- '예약중'일 때 색상 -->
+                                                        <DataTrigger Binding="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}" Value="예약중">
+                                                            <Setter Property="Foreground" Value="Green"/>
+                                                        </DataTrigger>
+                                                        <!-- '거래완료'일 때 색상을 Gray로 설정하고, 텍스트에 줄을 그어줌 -->
+                                                        <DataTrigger Binding="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}" Value="거래완료">
+                                                            <Setter Property="Foreground" Value="LightGray"/>
+                                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Path=Title}"
+                                           Grid.Row="1" 
+                                           VerticalAlignment="Top"                                   
+                                           FontWeight="DemiBold"
+                                           FontSize="18"
+                                           Margin="5"
+                                           TextWrapping="Wrap"/>
+                                    </StackPanel>
 
                                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.Row="2">
                                         <TextBlock Text="{Binding Path=Cate}"></TextBlock>
@@ -87,18 +110,10 @@
                                     </StackPanel>
                                     <Border BorderThickness="0.5" Grid.Row="2" BorderBrush="LightGray" Margin="0,30,0,0"/>
 
-                                    <ComboBox
-                                         x:Name="OutlinedComboBox"
-                                         Grid.Row="3"
-                                         Padding="6"
-                                         Width="120"
-                                         IsEnabled="True"
-                                         Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
-
-                                    <TextBlock Grid.Row="4" Margin="15" Text="{Binding Path=Description}"></TextBlock>
+                                    <TextBlock Grid.Row="3" Margin="10" Text="{Binding Path=Description}"></TextBlock>
 
                                     <StackPanel
-                                        Grid.Row="5"
+                                        Grid.Row="4"
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Left"
                                         Margin="10,0,0,0"
@@ -107,7 +122,7 @@
                                     </StackPanel>
 
                                     <StackPanel
-                                        Grid.Row="6"
+                                        Grid.Row="5"
                                         Margin="0,0,5,0"                                        
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Right"
@@ -123,18 +138,26 @@
                                         </StackPanel>
                                         <materialDesign:PopupBox Padding="2,0,2,0" Margin="10,0,0,0" Style="{StaticResource MaterialDesignToolPopupBox}" HorizontalAlignment="Right">
                                             <StackPanel>
+                                                <Menu>
+                                                    <MenuItem>
+                                                        <MenuItem.Header>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <!-- 수정하기 아이콘 -->
+                                                                <materialDesign:PackIcon Kind="PencilOutline" Width="16" Height="16" Margin="0,0,5,0" />
+                                                                <TextBlock Text="수정하기" VerticalAlignment="Center" />
+                                                            </StackPanel>
+                                                        </MenuItem.Header>
+                                                        <MenuItem Header="정보수정" Icon="{materialDesign:PackIcon Kind=ContentSave}"/>
+                                                        <MenuItem Header="상태수정">
+                                                            <MenuItem Header="판매중" Click="MenuItem_Click" IsCheckable="True" />
+                                                            <MenuItem Header="예약중" Click="MenuItem_Click" IsCheckable="True" />
+                                                            <MenuItem Header="거래완료" Click="MenuItem_Click" IsCheckable="True" />
+                                                        </MenuItem>
+                                                    </MenuItem>
+                                                </Menu>
                                                 <Button Width="auto" Margin="7" Foreground="Black"
-                                                    Style="{StaticResource MaterialDesignFlatLightButton}" 
-                                                    ToolTip="MaterialDesignFlatLightButton">
-                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                                        <materialDesign:PackIcon Kind="PencilOutline" Width="16" Height="16" Margin="0,0,5,0" />
-                                                        <TextBlock Text="수정하기" VerticalAlignment="Center" />
-                                                    </StackPanel>
-                                                </Button>
-                                                <Button Width="auto" Margin="7" Foreground="Black"
-                                                        Click="Button_Click"
-                                                    Style="{StaticResource MaterialDesignFlatLightButton}" 
-                                                    ToolTip="MaterialDesignFlatLightButton">
+                                                    Click="Button_Click"
+                                                    Style="{StaticResource MaterialDesignFlatLightButton}">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                         <materialDesign:PackIcon Kind="DeleteOutline" Width="16" Height="16" Margin="0,0,5,0" />
                                                         <TextBlock Text="삭제하기" VerticalAlignment="Center" />

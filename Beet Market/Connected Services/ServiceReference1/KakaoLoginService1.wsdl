@@ -26,9 +26,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:9000/KakaoService?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:9000/KakaoService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:9000/KakaoService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/KakaoLogin" />
+      <xsd:import schemaLocation="http://10.101.39.115:9000/KakaoService?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://10.101.39.115:9000/KakaoService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://10.101.39.115:9000/KakaoService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/KakaoLogin" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IkakaoLogin_Open_InputMessage">
@@ -235,15 +235,15 @@
   </wsdl:binding>
   <wsdl:service name="KakaoLoginService">
     <wsdl:port name="NetTcpBinding_IkakaoLogin" binding="tns:NetTcpBinding_IkakaoLogin">
-      <soap12:address location="net.tcp://localhost:8000/KakaoService" />
+      <soap12:address location="net.tcp://10.101.39.115:8000/KakaoService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8000/KakaoService</wsa10:Address>
+        <wsa10:Address>net.tcp://10.101.39.115:8000/KakaoService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IChatroom" binding="tns:NetTcpBinding_IChatroom">
-      <soap12:address location="net.tcp://localhost:8000/KakaoService" />
+      <soap12:address location="net.tcp://10.101.39.115:8000/KakaoService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8000/KakaoService</wsa10:Address>
+        <wsa10:Address>net.tcp://10.101.39.115:8000/KakaoService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

@@ -14,9 +14,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:9100/MarketService?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:9100/MarketService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:9100/MarketService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Market_Service" />
+      <xsd:import schemaLocation="http://10.101.39.115:9100/MarketService?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://10.101.39.115:9100/MarketService?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://10.101.39.115:9100/MarketService?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Market_Service" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IProductInsert_InsertProduct_InputMessage">
@@ -217,9 +217,9 @@
   </wsdl:binding>
   <wsdl:service name="ProductService">
     <wsdl:port name="NetTcpBinding_IProductInsert" binding="tns:NetTcpBinding_IProductInsert">
-      <soap12:address location="net.tcp://localhost:8100/MarketService" />
+      <soap12:address location="net.tcp://10.101.39.115:8100/MarketService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8100/MarketService</wsa10:Address>
+        <wsa10:Address>net.tcp://10.101.39.115:8100/MarketService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>

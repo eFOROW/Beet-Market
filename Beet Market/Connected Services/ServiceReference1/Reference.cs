@@ -42,8 +42,7 @@ namespace Beet_Market.ServiceReference1 {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int TagField;
-
-
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -223,51 +222,51 @@ namespace Beet_Market.ServiceReference1 {
                 base(binding, remoteAddress) {
         }
         
-        bool IkakaoLogin.Open() {
+        public bool Open() {
             return base.Channel.Open();
         }
         
-        System.Threading.Tasks.Task<bool> IkakaoLogin.OpenAsync() {
+        public System.Threading.Tasks.Task<bool> OpenAsync() {
             return base.Channel.OpenAsync();
         }
         
-        bool IkakaoLogin.Close() {
+        public bool Close() {
             return base.Channel.Close();
         }
         
-        System.Threading.Tasks.Task<bool> IkakaoLogin.CloseAsync() {
+        public System.Threading.Tasks.Task<bool> CloseAsync() {
             return base.Channel.CloseAsync();
         }
         
-        bool IkakaoLogin.User_Select(string userId) {
+        public bool User_Select(string userId) {
             return base.Channel.User_Select(userId);
         }
         
-        System.Threading.Tasks.Task<bool> IkakaoLogin.User_SelectAsync(string userId) {
+        public System.Threading.Tasks.Task<bool> User_SelectAsync(string userId) {
             return base.Channel.User_SelectAsync(userId);
         }
         
-        void IkakaoLogin.User_Update(string userId, string userNickName, string userImg) {
+        public void User_Update(string userId, string userNickName, string userImg) {
             base.Channel.User_Update(userId, userNickName, userImg);
         }
         
-        System.Threading.Tasks.Task IkakaoLogin.User_UpdateAsync(string userId, string userNickName, string userImg) {
+        public System.Threading.Tasks.Task User_UpdateAsync(string userId, string userNickName, string userImg) {
             return base.Channel.User_UpdateAsync(userId, userNickName, userImg);
         }
         
-        void IkakaoLogin.User_Insert(string userId, string userNickName, string userImg) {
+        public void User_Insert(string userId, string userNickName, string userImg) {
             base.Channel.User_Insert(userId, userNickName, userImg);
         }
         
-        System.Threading.Tasks.Task IkakaoLogin.User_InsertAsync(string userId, string userNickName, string userImg) {
+        public System.Threading.Tasks.Task User_InsertAsync(string userId, string userNickName, string userImg) {
             return base.Channel.User_InsertAsync(userId, userNickName, userImg);
         }
         
-        void IkakaoLogin.ProcessUserLogin(string userId, string userNickName, string userImg) {
+        public void ProcessUserLogin(string userId, string userNickName, string userImg) {
             base.Channel.ProcessUserLogin(userId, userNickName, userImg);
         }
         
-        System.Threading.Tasks.Task IkakaoLogin.ProcessUserLoginAsync(string userId, string userNickName, string userImg) {
+        public System.Threading.Tasks.Task ProcessUserLoginAsync(string userId, string userNickName, string userImg) {
             return base.Channel.ProcessUserLoginAsync(userId, userNickName, userImg);
         }
     }

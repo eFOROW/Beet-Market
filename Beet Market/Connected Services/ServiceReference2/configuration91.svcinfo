@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="XKUCZCnbuZdsL+/VzkKMJOmZdi1EK4YxTN+1eQT/Fxc=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="RBgV6eZydzg8FLGEJX2Ee2jXLu/PvRkTjep/InqBwDU=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IProductInsert">
       <properties>
@@ -121,10 +121,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetTcpBinding_IProductInsert" contract="ServiceReference2.IProductInsert" bindingType="netTcpBinding" address="net.tcp://localhost:8100/MarketService" bindingConfiguration="NetTcpBinding_IProductInsert">
+    <endpoint name="NetTcpBinding_IProductInsert" contract="ServiceReference2.IProductInsert" bindingType="netTcpBinding" address="net.tcp://10.101.39.115:8100/MarketService" bindingConfiguration="NetTcpBinding_IProductInsert">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8100/MarketService</serializedValue>
+          <serializedValue>net.tcp://10.101.39.115:8100/MarketService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

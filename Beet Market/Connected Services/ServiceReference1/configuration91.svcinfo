@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="tCF0oDPGW7CRrhndtk6tTei7rHygkCdOCV9TfliAVF0=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="vd/GAQGA0Rw9BakraeZZ6pWjVgyllhX92C8EEubmLE0=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IkakaoLogin">
       <properties>
@@ -239,10 +239,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetTcpBinding_IkakaoLogin" contract="ServiceReference1.IkakaoLogin" bindingType="netTcpBinding" address="net.tcp://localhost:8000/KakaoService" bindingConfiguration="NetTcpBinding_IkakaoLogin">
+    <endpoint name="NetTcpBinding_IkakaoLogin" contract="ServiceReference1.IkakaoLogin" bindingType="netTcpBinding" address="net.tcp://10.101.39.115:8000/KakaoService" bindingConfiguration="NetTcpBinding_IkakaoLogin">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8000/KakaoService</serializedValue>
+          <serializedValue>net.tcp://10.101.39.115:8000/KakaoService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -324,10 +324,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IChatroom" contract="ServiceReference1.IChatroom" bindingType="netTcpBinding" address="net.tcp://localhost:8000/KakaoService" bindingConfiguration="NetTcpBinding_IChatroom">
+    <endpoint name="NetTcpBinding_IChatroom" contract="ServiceReference1.IChatroom" bindingType="netTcpBinding" address="net.tcp://10.101.39.115:8000/KakaoService" bindingConfiguration="NetTcpBinding_IChatroom">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8000/KakaoService</serializedValue>
+          <serializedValue>net.tcp://10.101.39.115:8000/KakaoService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
