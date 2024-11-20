@@ -29,6 +29,8 @@ namespace Beet_Market
     public partial class ChattingControl : UserControl
     {
         private KakaoManager km = KakaoManager.Instance;
+        private ProductInsertClient client = new ProductInsertClient();        
+
         private ObservableCollection<ChatRoom> Chatroom = new ObservableCollection<ChatRoom>();
         CompositeCollection compositeCollection = new CompositeCollection();
 
@@ -72,7 +74,7 @@ namespace Beet_Market
             #endregion
 
             // ObservableCollection 초기화
-            Messages = new ObservableCollection<Message>();         
+            Messages = new ObservableCollection<Message>();           
         }
 
         private void ScrollViewer_Loaded(object sender, RoutedEventArgs e)
@@ -200,6 +202,14 @@ namespace Beet_Market
 
             // 새로운 메시지 로드 및 리스너 등록
             LoadInitialMessages(tag);
+
+
+            // 상품정보
+            client.On();
+            Product temp = client.GetProductId(selectedItem.P_Id);
+            productGrid.DataContext = null;
+            productGrid.DataContext = temp;
+            client.Off();
         }
         #endregion
 
@@ -208,6 +218,11 @@ namespace Beet_Market
             if (!string.IsNullOrEmpty(textBox1.Text))
                 button1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3445A"));
             else button1.Foreground = new SolidColorBrush(Colors.Gray);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            km.Update();
         }
     }
 

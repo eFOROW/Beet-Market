@@ -294,6 +294,24 @@ namespace Beet_Market.ServiceReference2 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetProductCate", ReplyAction="http://tempuri.org/IProductInsert/GetProductCateResponse")]
         System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product[]> GetProductCateAsync(string Cate);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/DeleteProduct", ReplyAction="http://tempuri.org/IProductInsert/DeleteProductResponse")]
+        bool DeleteProduct(int p_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/DeleteProduct", ReplyAction="http://tempuri.org/IProductInsert/DeleteProductResponse")]
+        System.Threading.Tasks.Task<bool> DeleteProductAsync(int p_id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/UpdateProduct", ReplyAction="http://tempuri.org/IProductInsert/UpdateProductResponse")]
+        bool UpdateProduct(int p_id, int p_status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/UpdateProduct", ReplyAction="http://tempuri.org/IProductInsert/UpdateProductResponse")]
+        System.Threading.Tasks.Task<bool> UpdateProductAsync(int p_id, int p_status);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetProductId", ReplyAction="http://tempuri.org/IProductInsert/GetProductIdResponse")]
+        Beet_Market.ServiceReference2.Product GetProductId(int P_Id);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetProductId", ReplyAction="http://tempuri.org/IProductInsert/GetProductIdResponse")]
+        System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product> GetProductIdAsync(int P_Id);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/On", ReplyAction="http://tempuri.org/IProductInsert/OnResponse")]
         bool On();
         
@@ -364,6 +382,30 @@ namespace Beet_Market.ServiceReference2 {
         
         public System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product[]> GetProductCateAsync(string Cate) {
             return base.Channel.GetProductCateAsync(Cate);
+        }
+        
+        public bool DeleteProduct(int p_id) {
+            return base.Channel.DeleteProduct(p_id);
+        }
+        
+        public System.Threading.Tasks.Task<bool> DeleteProductAsync(int p_id) {
+            return base.Channel.DeleteProductAsync(p_id);
+        }
+        
+        public bool UpdateProduct(int p_id, int p_status) {
+            return base.Channel.UpdateProduct(p_id, p_status);
+        }
+        
+        public System.Threading.Tasks.Task<bool> UpdateProductAsync(int p_id, int p_status) {
+            return base.Channel.UpdateProductAsync(p_id, p_status);
+        }
+        
+        public Beet_Market.ServiceReference2.Product GetProductId(int P_Id) {
+            return base.Channel.GetProductId(P_Id);
+        }
+        
+        public System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product> GetProductIdAsync(int P_Id) {
+            return base.Channel.GetProductIdAsync(P_Id);
         }
         
         public bool On() {

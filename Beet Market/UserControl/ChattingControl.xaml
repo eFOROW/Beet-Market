@@ -8,6 +8,9 @@
              mc:Ignorable="d"
              Background="White"
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <local:StatusConverter x:Key="StatusConverter" />
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
@@ -16,7 +19,25 @@
         </Grid.ColumnDefinitions>
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Column="0">
             <StackPanel Orientation="Vertical">
-                <TextBlock Text="채팅" Margin="40,0,0,0" FontWeight="Bold" FontSize="18"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Text="채팅" Margin="15" VerticalAlignment="Center" FontWeight="Bold" FontSize="18"/>
+                    <Button
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Click="Button_Click"
+                        Margin="0,0,20,0"
+                        Background="{DynamicResource MaterialDesignTextFieldBoxBackground}"
+                        IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                        ToolTip="MaterialDesignIconButton">
+                        <materialDesign:PackIcon Kind="Reload" />
+                    </Button>
+                </Grid>
                 <Border BorderThickness="0.5" BorderBrush="LightGray" Margin="0,20,0,0"/>
                 <ListView x:Name="chatroomlist" ItemsSource="{Binding Chatroom}" Margin="10" SelectionChanged="ListView_SelectionChanged">
                     <ListView.ItemTemplate>
@@ -56,8 +77,46 @@
                 <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="0" Opacity="0.5"/>
             </GridSplitter.Effect>
         </GridSplitter>
-        <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Bottom">
-            <ScrollViewer Name="scrollViewer" VerticalScrollBarVisibility="Auto" Loaded="ScrollViewer_Loaded">
+        <Grid Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="100"/>
+                <RowDefinition  Height="1*"/>
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="productGrid" Grid.Row="0" VerticalAlignment="Top" Orientation="Horizontal" Height="100" Background="White">
+                <StackPanel.Effect>
+                    <DropShadowEffect Color="Black" BlurRadius="5" ShadowDepth="0" Opacity="0.5"/>
+                </StackPanel.Effect>
+                <Image Source="{Binding Path=Img}" Stretch="UniformToFill" Width="70" Height="70" Margin="20,0,0,0"/>
+                <StackPanel Orientation="Vertical" Margin="20">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4" FontSize="13" FontWeight="DemiBold"  VerticalAlignment="Center" Text="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <!-- '판매중'일 때 색상 -->
+                                        <DataTrigger Binding="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}" Value="판매중">
+                                            <Setter Property="Foreground" Value="DimGray"/>
+                                        </DataTrigger>
+                                        <!-- '예약중'일 때 색상 -->
+                                        <DataTrigger Binding="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}" Value="예약중">
+                                            <Setter Property="Foreground" Value="Green"/>
+                                        </DataTrigger>
+                                        <!-- '거래완료'일 때 색상을 Gray로 설정하고, 텍스트에 줄을 그어줌 -->
+                                        <DataTrigger Binding="{Binding Path=P_Status, Converter={StaticResource StatusConverter}}" Value="거래완료">
+                                            <Setter Property="Foreground" Value="LightGray"/>
+                                            <Setter Property="TextDecorations" Value="Strikethrough"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock FontSize="17" FontWeight="DemiBold" Margin="4" Text="{Binding Path=Title}"></TextBlock>
+                    </StackPanel>
+                    <TextBlock Margin="10" FontSize="16" Text="{Binding Path=Pirce, StringFormat={}{0:0원}}"></TextBlock>
+                </StackPanel>
+            </StackPanel>
+            <ScrollViewer Name="scrollViewer" VerticalAlignment="Bottom" Grid.Row="1" VerticalScrollBarVisibility="Auto" Loaded="ScrollViewer_Loaded">
                 <ItemsControl Name="conversationList" Margin="20">
                     <ItemsControl.Resources>
                         <DataTemplate DataType="{x:Type local:InboundMessage}">
@@ -81,7 +140,7 @@
                     </ItemsControl.Resources>
                 </ItemsControl>
             </ScrollViewer>
-            <Grid>
+            <Grid Grid.Row="2" VerticalAlignment="Bottom">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="70"/>
@@ -107,6 +166,6 @@
                     <materialDesign:PackIcon Kind="Send" />
                 </Button>
             </Grid>
-        </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>
