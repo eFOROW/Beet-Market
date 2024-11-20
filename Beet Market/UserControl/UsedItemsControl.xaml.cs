@@ -184,6 +184,7 @@ namespace Beet_Market
 
                         // 하나의 마커만 추가
                         function addMarker(lat, lng) {
+                            const position = new kakao.maps.LatLng(lat, lng);
                             // 기존 마커 제거
                             if (marker) {
                                 marker.setMap(null);
@@ -193,6 +194,7 @@ namespace Beet_Market
                                 position: new kakao.maps.LatLng(lat, lng),
                                 map: map
                             });
+                            map.setCenter(position);
                         }
 
                         // 저장된 마커를 지도에 추가
@@ -305,6 +307,27 @@ namespace Beet_Market
                 }
             }            
         }
+
+
+        #region 거래방식
+        private void hidde_type_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(hidde_type.Text)) return;
+
+            string type = hidde_type.Text;
+
+            type1.IsSelected = false; type2.IsSelected = false; type3.IsSelected = false;
+
+            // 포함 여부 체크
+            if (type.Contains("직거래"))
+                type1.IsSelected = true;
+            if (type.Contains("비대면 직거래"))
+                type2.IsSelected = true;
+            if (type.Contains("택배 배송"))
+                type3.IsSelected = true;
+
+        }
+        #endregion
     }
 
     public class Coordinates

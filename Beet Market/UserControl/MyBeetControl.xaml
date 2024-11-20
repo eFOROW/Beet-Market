@@ -58,22 +58,20 @@
                 <ItemsControl ItemsSource="{Binding Items}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <materialDesign:Card Width="350" Height="570" Grid.Row="0">
+                            <materialDesign:Card Width="350" Height="520" Grid.Row="0">
                                 <Grid>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="1*"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition />
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition />
-                                        <RowDefinition />
+                                        <RowDefinition Height="1*"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="auto"/>
                                     </Grid.RowDefinitions>
+                                   
+                                    <Image Grid.Row="0" Source="{Binding Path=Img}" Stretch="Uniform"/>
 
-                                    <Image Grid.Row="0" Stretch="Fill" MaxHeight="300" Width="auto">
-                                        <Image.Source>
-                                            <BitmapImage UriSource="{Binding Path=ImageSource}"/>
-                                        </Image.Source>
-                                    </Image>
 
                                     <TextBlock Text="{Binding Path=Title}"
                                        Grid.Row="1" 
@@ -84,33 +82,32 @@
                                        TextWrapping="Wrap"/>
 
                                     <StackPanel Orientation="Horizontal" Margin="10,0,0,0" Grid.Row="2">
-                                        <TextBlock>카테고리</TextBlock>
-                                        <TextBlock Text="{Binding Path=Created_at, StringFormat=ㆍ{0:yyyy년MM월dd일 HH:mm:ss}}"></TextBlock>
+                                        <TextBlock Text="{Binding Path=Cate}"></TextBlock>
+                                        <TextBlock Text="{Binding Path=P_Dt, StringFormat=ㆍ{0:yyyy년MM월dd일 HH:mm:ss}}"></TextBlock>
                                     </StackPanel>
+                                    <Border BorderThickness="0.5" Grid.Row="2" BorderBrush="LightGray" Margin="0,30,0,0"/>
 
-                                    <TextBox
-                                        Grid.Row="3"
-                                        Height="100"
-                                        Margin="10"
-                                        VerticalAlignment="Top"
-                                        materialDesign:HintAssist.Hint="This is a text area"
-                                        AcceptsReturn="True"
-                                        IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
-                                        Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                        TextWrapping="Wrap"
-                                        VerticalScrollBarVisibility="Auto" />
+                                    <ComboBox
+                                         x:Name="OutlinedComboBox"
+                                         Grid.Row="3"
+                                         Padding="6"
+                                         Width="120"
+                                         IsEnabled="True"
+                                         Style="{StaticResource MaterialDesignOutlinedComboBox}"/>
+
+                                    <TextBlock Grid.Row="4" Margin="15" Text="{Binding Path=Description}"></TextBlock>
 
                                     <StackPanel
-                                        Grid.Row="4"
+                                        Grid.Row="5"
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Left"
                                         Margin="10,0,0,0"
                                         Orientation="Horizontal">
-                                        <TextBlock FontSize="17" FontWeight="DemiBold">150000원</TextBlock>
+                                        <TextBlock FontSize="17" FontWeight="DemiBold" Text="{Binding Path=Pirce, StringFormat={}{0:0원}}"></TextBlock>
                                     </StackPanel>
 
                                     <StackPanel
-                                        Grid.Row="5"
+                                        Grid.Row="6"
                                         Margin="0,0,5,0"                                        
                                         VerticalAlignment="Bottom"
                                         HorizontalAlignment="Right"
@@ -122,7 +119,7 @@
                                                 Style="{StaticResource MaterialDesignToolButton}">
                                                 <materialDesign:PackIcon Kind="EyeOutline" />
                                             </Button>
-                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=See, StringFormat={}{0:0명}}"></TextBlock>
+                                            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Path=P_See, StringFormat={}{0:0명}}"></TextBlock>
                                         </StackPanel>
                                         <materialDesign:PopupBox Padding="2,0,2,0" Margin="10,0,0,0" Style="{StaticResource MaterialDesignToolPopupBox}" HorizontalAlignment="Right">
                                             <StackPanel>
@@ -135,6 +132,7 @@
                                                     </StackPanel>
                                                 </Button>
                                                 <Button Width="auto" Margin="7" Foreground="Black"
+                                                        Click="Button_Click"
                                                     Style="{StaticResource MaterialDesignFlatLightButton}" 
                                                     ToolTip="MaterialDesignFlatLightButton">
                                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -152,7 +150,7 @@
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel ItemWidth="370" ItemHeight="600" Orientation="Horizontal"/>
+                            <WrapPanel ItemWidth="410" ItemHeight="540" Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                 </ItemsControl>

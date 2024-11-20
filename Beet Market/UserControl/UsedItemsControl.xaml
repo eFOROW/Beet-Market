@@ -301,12 +301,14 @@
                         <ListBox Name="m_typeListBox"
                              Style="{StaticResource MaterialDesignFilterChipOutlineListBox}"
                              SelectionMode="Multiple">
-                            <ListBoxItem Content="직거래" IsEnabled="False"/>
-                            <ListBoxItem Content="비대면 직거래" IsEnabled="False"/>
-                            <ListBoxItem Content="택배 배송" IsEnabled="False"/>
+                            <ListBoxItem x:Name="type1" Content="직거래" IsEnabled="False"/>
+                            <ListBoxItem x:Name="type2" Content="비대면 직거래" IsEnabled="False"/>
+                            <ListBoxItem x:Name="type3" Content="택배 배송" IsEnabled="False"/>
                         </ListBox>
-                        <TextBlock Text="{Binding How}"/>
-                        <WebBrowser x:Name="webBrowser2" Margin="0,0,0,10" DataContext="{Binding Path=P_Js}" DataContextChanged="webBrowser2_DataContextChanged"/>
+                        <TextBlock x:Name="hidde_type" Visibility="Collapsed" Text="{Binding How}" DataContextChanged="hidde_type_DataContextChanged"/>
+                        <Border ClipToBounds="True">                            
+                            <WebBrowser x:Name="webBrowser2" Margin="0,0,0,10" DataContext="{Binding Path=P_Js}" DataContextChanged="webBrowser2_DataContextChanged"/>
+                        </Border>
                         <Rectangle Margin="10" VerticalAlignment="Top" Height="1" Width="Auto" Fill="LightGray"/>
                     </StackPanel>
                     <Grid  Grid.Row="3" Margin="15,0,15,15">
