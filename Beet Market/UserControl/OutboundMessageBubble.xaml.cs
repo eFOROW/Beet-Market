@@ -65,5 +65,14 @@ namespace Beet_Market
         public int MessageId { set; get; }
         public string Message { set; get; }
         public string SentTime { set; get; }
+
+        public OutboundMessage() { }
+
+        public OutboundMessage(int messageId, string message, string sentTime)
+        {
+            MessageId = messageId;
+            Message = message;
+            SentTime = sentTime;
+        }
     }
 }

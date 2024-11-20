@@ -36,7 +36,7 @@ namespace Beet_Market
         static FirebaseClient firebase = new FirebaseClient(firebaseUrl);
 
         public ObservableCollection<Message> Messages { get; set; } = null;
-        private string currentUser; // 현재 사용자의 이름
+        private ChatRoom selectedItem = null;
         private string tag = string.Empty; // 현재 채팅방 Tag
         private IDisposable firebaseSubscription; // 기존 구독 관리
 
@@ -64,51 +64,21 @@ namespace Beet_Market
             // 데이터 컨텍스트 설정
             DataContext = km;
 
-            #region 채팅 초기화
-            inboundMessages.Add(new InboundMessage { Name = "준서", Message = "오늘 약속 장소는", ReceivedTime = new DateTime(2023, 12, 10, 12, 50, 12).ToString("tt HH:mm"), imgUrl= "http://k.kakaocdn.net/dn/IHEP4/btsJH09cxs3/cpcAB49sMrqqKwClkZmDM1/img_640x640.jpg" });
-            inboundMessages.Add(new InboundMessage { Name = "준서", Message = "강남역 10번 출구야", ReceivedTime = new DateTime(2023, 12, 10, 12, 50, 15).ToString("tt HH:mm"), imgUrl = "http://k.kakaocdn.net/dn/IHEP4/btsJH09cxs3/cpcAB49sMrqqKwClkZmDM1/img_640x640.jpg" });
-            this.compositeCollection.Add(new CollectionContainer() { Collection = inboundMessages });
-
-            outboundMessages.Add(new OutboundMessage { MessageId = 1, Message = "그래 알았어", SentTime = new DateTime(2023, 12, 10, 12, 51, 30).ToString("tt HH:mm") });
-            outboundMessages.Add(new OutboundMessage { MessageId = 2, Message = "몇 시쯤 볼까?", SentTime = new DateTime(2023, 12, 10, 12, 51, 45).ToString("tt HH:mm") });
-
+            #region 채팅 초기화         
             this.compositeCollection.Add(new CollectionContainer() { Collection = inboundMessages });
             this.compositeCollection.Add(new CollectionContainer() { Collection = outboundMessages });
-
-            this.compositeCollection.Add(new InboundMessage { Name = "준서", Message = "7시", ReceivedTime = new DateTime(2023, 12, 10, 12, 53, 02).ToString("tt HH:mm"), imgUrl = "http://k.kakaocdn.net/dn/IHEP4/btsJH09cxs3/cpcAB49sMrqqKwClkZmDM1/img_640x640.jpg" });
-            this.compositeCollection.Add(new OutboundMessage { MessageId = 1, Message = "ㅇㅇ", SentTime = new DateTime(2023, 12, 10, 12, 54, 55).ToString("tt HH:mm") });
 
             conversationList.ItemsSource = compositeCollection;
             #endregion
 
             // ObservableCollection 초기화
-            Messages = new ObservableCollection<Message>();
-
-            // 초기 사용자 설정
-            currentUser = "User1"; // 기본값: User1
-
-            // Firebase에서 초기 데이터 가져오기
+            Messages = new ObservableCollection<Message>();         
         }
 
         private void ScrollViewer_Loaded(object sender, RoutedEventArgs e)
         {
             // 스크롤뷰어가 항상 마지막 메시지를 표시하도록 설정
             scrollViewer.ScrollToEnd();
-        }
-
-        private void UpdateMessageBox()
-        {
-            textBox2.Text = string.Join(Environment.NewLine,
-                    Messages
-                    .Where(m => m != null && m.Sender != null) // null 값 필터링
-                    .Select(m => $"{m.Sender}: {m.Content}"));
-        }
-
-        private void switchUserButton_Click(object sender, EventArgs e)
-        {
-            // 유저 이름 전환 (User1 ↔ User2)
-            currentUser = (currentUser == "User1") ? "User2" : "User1";
-            MessageBox.Show($"현재 사용자: {currentUser}");
         }
 
         // 기존 Firebase 리스너 중지 메서드
@@ -130,7 +100,7 @@ namespace Beet_Market
                 Application.Current.Dispatcher.Invoke(() =>
                 {
                     Messages.Clear(); // 기존 메시지를 완전히 제거
-                    UpdateMessageBox(); // UI 초기화
+                    compositeCollection.Clear();
                 });
 
                 // Firebase 리스너 등록 (기존 리스너가 중지되었는지 확인)
@@ -138,6 +108,7 @@ namespace Beet_Market
 
                 firebaseSubscription = firebase
                     .Child("ChatRoom/" + tag + "/messages")
+                    .OrderBy("timestamp")
                     .AsObservable<Message>()
                     .ObserveOnDispatcher()
                     .Subscribe(change =>
@@ -147,8 +118,26 @@ namespace Beet_Market
                             Application.Current.Dispatcher.Invoke(() =>
                             {
                                 Messages.Add(change.Object);
-                                UpdateMessageBox();
-                                scrollViewer.ScrollToEnd();
+
+                                Message temp = change.Object;
+                                if (temp != null)
+                                {
+                                    if (temp.Sender == KakaoData.UserNickName)
+                                    {
+                                        this.compositeCollection.Add(new OutboundMessage(1, temp.Content, temp.Timestamp.ToString("tt HH:mm")));
+                                    }
+                                    else
+                                    {
+                                        if (selectedItem.A_Name == temp.Sender)
+                                        {
+                                            this.compositeCollection.Add(new InboundMessage(temp.Sender, selectedItem.A_imgUrl, temp.Content, temp.Timestamp.ToString("tt HH:mm")));
+                                        }
+                                        else
+                                        {
+                                            this.compositeCollection.Add(new InboundMessage(temp.Sender, selectedItem.J_imgUrl, temp.Content, temp.Timestamp.ToString("tt HH:mm")));
+                                        }
+                                    }
+                                }
                             });
                         }
                     });
@@ -161,13 +150,15 @@ namespace Beet_Market
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(textBox1.Text)) return;
+
             try
             {
                 var newMessage = new Message
                 {
                     Sender = KakaoData.UserNickName, // 현재 사용자의 이름
                     Content = textBox1.Text,
-                    Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
+                    Timestamp = DateTime.Now
                 };
 
                 textBox1.Text = ""; // 입력창 초기화
@@ -184,7 +175,7 @@ namespace Beet_Market
         #region 채팅방 리스트 선택 리스너
         private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ChatRoom selectedItem = (ChatRoom)chatroomlist.SelectedItem;
+            selectedItem = (ChatRoom)chatroomlist.SelectedItem;
 
             if (selectedItem == null)
             {
@@ -211,13 +202,20 @@ namespace Beet_Market
             LoadInitialMessages(tag);
         }
         #endregion
+
+        private void textBox1_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(textBox1.Text))
+                button1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F3445A"));
+            else button1.Foreground = new SolidColorBrush(Colors.Gray);
+        }
     }
 
     public class Message
     {
         public string Sender { get; set; }
         public string Content { get; set; }
-        public long Timestamp { get; set; }
+        public DateTime Timestamp { get; set; }
     }
 
 }

@@ -81,9 +81,32 @@
                     </ItemsControl.Resources>
                 </ItemsControl>
             </ScrollViewer>
-            <TextBox x:Name="textBox2" IsReadOnly="True"></TextBox>
-            <TextBox x:Name="textBox1"></TextBox>
-            <Button x:Name="button1" Click="button1_Click"></Button>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="70"/>
+                </Grid.ColumnDefinitions>
+                <TextBox
+                    x:Name="textBox1"
+                    TextChanged="textBox1_TextChanged"
+                    Margin="10"
+                    MaxHeight="70"
+                    Grid.Column="0"
+                    Padding="10"
+                    VerticalAlignment="Top"
+                    materialDesign:HintAssist.Hint="메시지 보내기"
+                    AcceptsReturn="True"
+                    IsEnabled="true"
+                    Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto" />
+                <Button x:Name="button1" Grid.Column="1" Click="button1_Click"
+                  IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                  Style="{StaticResource MaterialDesignIconForegroundButton}"
+                  ToolTip="MaterialDesignIconForegroundButton">
+                    <materialDesign:PackIcon Kind="Send" />
+                </Button>
+            </Grid>
         </StackPanel>
     </Grid>
 </UserControl>

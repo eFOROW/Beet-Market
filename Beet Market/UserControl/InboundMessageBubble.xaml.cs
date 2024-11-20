@@ -83,5 +83,15 @@ namespace Beet_Market
         public string imgUrl { set; get; }
         public string Message { set; get; }
         public string ReceivedTime { set; get; }
+
+        public InboundMessage() { }
+
+        public InboundMessage(string name, string imgUrl, string message, string receivedTime)
+        {
+            Name = name;
+            this.imgUrl = imgUrl;
+            Message = message;
+            ReceivedTime = receivedTime;
+        }
     }
 }

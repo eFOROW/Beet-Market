@@ -280,11 +280,12 @@ namespace Beet_Market
             }
 
             if (cr_Client.InsertChatRoom(p_id, a_id, KakaoData.UserId) == 0)
-                MessageBox.Show("채팅방 생성에 실패했습니다.", "알림");
+                MessageBox.Show("이미 생성된 채팅방이 있습니다", "알림");
             else
+            {
+                km.Update();
                 MessageBox.Show("채팅방을 생성하였습니다.", "알림");
-
-            
+            }            
         }
         #endregion
 
