@@ -312,6 +312,12 @@ namespace Beet_Market.ServiceReference2 {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetProductId", ReplyAction="http://tempuri.org/IProductInsert/GetProductIdResponse")]
         System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product> GetProductIdAsync(int P_Id);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetUserProducts", ReplyAction="http://tempuri.org/IProductInsert/GetUserProductsResponse")]
+        Beet_Market.ServiceReference2.Product[] GetUserProducts(string userId);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/GetUserProducts", ReplyAction="http://tempuri.org/IProductInsert/GetUserProductsResponse")]
+        System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product[]> GetUserProductsAsync(string userId);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IProductInsert/On", ReplyAction="http://tempuri.org/IProductInsert/OnResponse")]
         bool On();
         
@@ -406,6 +412,14 @@ namespace Beet_Market.ServiceReference2 {
         
         public System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product> GetProductIdAsync(int P_Id) {
             return base.Channel.GetProductIdAsync(P_Id);
+        }
+        
+        public Beet_Market.ServiceReference2.Product[] GetUserProducts(string userId) {
+            return base.Channel.GetUserProducts(userId);
+        }
+        
+        public System.Threading.Tasks.Task<Beet_Market.ServiceReference2.Product[]> GetUserProductsAsync(string userId) {
+            return base.Channel.GetUserProductsAsync(userId);
         }
         
         public bool On() {
